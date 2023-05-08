@@ -3,11 +3,12 @@ import { useContext } from "react";
 import { useRouter } from 'next/router';
 import { ProductsContext } from "@/context/productsContext";
 import { CartContext } from "@/context/cartContext";
-import { Text,Button } from "@nextui-org/react";
+import { Spacer } from "@nextui-org/react";
+import ProductDetail from "@/components/producto/detail";
 
 export default function App() {
   const { products, setProducts } = useContext(ProductsContext);
-  const { cart, addToCart, removeFromCart, clearCart } = useContext(CartContext);
+  const {  addToCart } = useContext(CartContext);
   const router = useRouter();
   const productoBuscado = products.find(producto => producto._id === router.query.producto);
   const handleAddToCart = () => {
@@ -16,9 +17,9 @@ export default function App() {
 
   return (
     <>
-      <NavbarComponent page="/productos" />
-      <Text >{productoBuscado ? productoBuscado.nombre : 'test'}</Text>
-      <Button onPress={handleAddToCart} >Agregar al carrito</Button>
-    </>
+    <NavbarComponent page="/productos" />
+    <Spacer y={3} />
+    <ProductDetail product={productoBuscado} handleAddToCart={handleAddToCart}/>
+  </>
   );
 }

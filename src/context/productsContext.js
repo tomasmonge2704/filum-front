@@ -18,10 +18,11 @@ export function ProductProvider({ children }) {
        setProducts(data);
       });
   };
+  const [token, setToken] = useState('');
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    setToken(localStorage.getItem("token"));
     getProducts(token);
-  }, []);
+  }, [token]);
 
   return (
     <ProductsContext.Provider value={{ products, setProducts }}>
