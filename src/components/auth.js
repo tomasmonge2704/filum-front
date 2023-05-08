@@ -13,7 +13,7 @@ function validateToken(token){
     }
 }
 
-export function CheckAuth() {
+export function CheckAuth({ children }) {
     const { user, setUser } = useContext(UserContext);
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -28,4 +28,8 @@ export function CheckAuth() {
             }
         }
       }, [])    
+      return (
+        <>
+        {children}
+        </>)
   }

@@ -1,9 +1,53 @@
-import { createContext, useState } from 'react';
+import { createContext, useReducer } from "react";
+
+const initialState = [];
+
+const reducer = (state, action) => {
+  const { type: actionType, payload: actionPayload } = action;
+  switch (actionType) {
+    case "ADD_TO_CART": {
+      const id  = actionPayload._id;
+      const productInCartIndex = state.findIndex((item) => item._id === id);
+      if (productInCartIndex >= 0) {
+        const newState = structuredClone(state);
+        newState[productInCartIndex].cantidad += 1;
+        return newState;
+      }
+      return [...state, { ...actionPayload, cantidad: 1 }];
+    }
+    case "REMOVE_FROM_CART": {
+      const id = actionPayload._id;
+      return state.filter((item) => item._id !== id);
+    }
+    case "CLEAR_CART": {
+      return initialState;
+    }
+  }
+  return state;
+};
 
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cart, setCart] = useState([]);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  return <CartContext.Provider value={{ cart, setCart }}>{children}</CartContext.Provider>;
+  const addToCart = (product) =>
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: product,
+    });
+  const removeFromCart = (product) =>
+    dispatch({
+      type: "REMOVE_FROM_CART",
+      payload: product,
+    });
+  const clearCart = () => dispatch({ type: "CLEAR_CART" });
+
+  return (
+    <CartContext.Provider
+      value={{ cart: state, addToCart, removeFromCart, clearCart }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
 }

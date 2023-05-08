@@ -3,7 +3,9 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { UserProvider } from "@/context/userContext";
 import { CartProvider } from "@/context/cartContext";
 import { ProductProvider } from "@/context/productsContext";
-// 2. Call `createTheme` and pass your custom values
+import { CheckAuth } from "@/components/auth";
+import '../styles/globals.css'
+
 const lightTheme = createTheme({
   type: "light",
 });
@@ -26,7 +28,9 @@ function MyApp({ Component, pageProps }) {
             }}
           >
             <NextUIProvider>
+              <CheckAuth>
               <Component {...pageProps} />
+              </CheckAuth>
             </NextUIProvider>
           </NextThemesProvider>
       </ProductProvider>
