@@ -24,6 +24,7 @@ export function CheckAuth({ children }) {
             if(!decoded){
                 Router.push('/login');
             }else{
+                decoded.user.token = token;
                 setUser(decoded.user);
             }
         }

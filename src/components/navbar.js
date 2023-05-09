@@ -44,6 +44,13 @@ export default function NavbarComponent({ page }) {
       localStorage.removeItem("token");
       Router.push("/login");
     }
+    if (e == "orders"){
+      Router.push("/orders");
+    }
+    if (e == "profile"){
+      Router.push("/user");
+    }
+    
   }
   const { user, setUser } = useContext(UserContext);
   const { cart } = useContext(CartContext);
@@ -133,7 +140,7 @@ export default function NavbarComponent({ page }) {
                 {user.username}
               </Text>
             </Dropdown.Item>
-            <Dropdown.Item key="settings" withDivider>
+            <Dropdown.Item key="orders" withDivider>
               My Orders
             </Dropdown.Item>
             <Dropdown.Item key="logout" id="logout" withDivider color="error">
