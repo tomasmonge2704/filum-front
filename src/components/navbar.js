@@ -134,16 +134,7 @@ export default function NavbarComponent({ page }) {
               </Text>
             </Dropdown.Item>
             <Dropdown.Item key="settings" withDivider>
-              My Settings
-            </Dropdown.Item>
-            <Dropdown.Item key="team_settings">Team Settings</Dropdown.Item>
-            <Dropdown.Item key="analytics" withDivider>
-              Analytics
-            </Dropdown.Item>
-            <Dropdown.Item key="system">System</Dropdown.Item>
-            <Dropdown.Item key="configurations">Configurations</Dropdown.Item>
-            <Dropdown.Item key="help_and_feedback" withDivider>
-              Help & Feedback
+              My Orders
             </Dropdown.Item>
             <Dropdown.Item key="logout" id="logout" withDivider color="error">
               Log Out

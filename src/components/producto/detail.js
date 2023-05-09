@@ -9,7 +9,9 @@ import {
   Dropdown,
   Spacer,
 } from "@nextui-org/react";
-export default function ProductDetail({ product, handleAddToCart }) {
+import { CartContext } from "@/context/cartContext";
+export default function ProductDetail({ product }) {
+    const {  addToCart } = React.useContext(CartContext);
     const [selected, setSelected] = React.useState([1]);
     const selectedValue = React.useMemo(
       () =>Array.from(selected).join(", ").replaceAll("_", " "),
@@ -17,10 +19,15 @@ export default function ProductDetail({ product, handleAddToCart }) {
     );  
     React.useMemo(
         () =>{
-            console.log(selectedValue);
+            product.cantidad = Number(selectedValue);
         },
         [selectedValue]
       ); 
+    
+    const handleAddToCart = () => {
+        addToCart(product);
+      };
+
   return (
     <>
       {product ? (

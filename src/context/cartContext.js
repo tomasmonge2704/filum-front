@@ -6,14 +6,15 @@ const reducer = (state, action) => {
   const { type: actionType, payload: actionPayload } = action;
   switch (actionType) {
     case "ADD_TO_CART": {
-      const id  = actionPayload._id;
-      const productInCartIndex = state.findIndex((item) => item._id === id);
-      if (productInCartIndex >= 0) {
-        const newState = structuredClone(state);
-        newState[productInCartIndex].cantidad += 1;
-        return newState;
+        const id = actionPayload._id;
+        const cantidad = actionPayload.cantidad;
+        const productInCartIndex = state.findIndex((item) => item._id === id);
+        if (productInCartIndex >= 0) {
+          const newState = structuredClone(state);
+          newState[productInCartIndex].cantidad = newState[productInCartIndex].cantidad + cantidad;
+          return newState;
       }
-      return [...state, { ...actionPayload, cantidad: 1 }];
+      return [...state, { ...actionPayload, cantidad }];
     }
     case "CHANGE_CANTIDAD":{
         const id = actionPayload._id;
