@@ -12,7 +12,7 @@ export default function App() {
 
   return (
     <>
-    <NavbarComponent page="/productos" />
+    <NavbarComponent/>
     <Spacer y={3} />
     <ProductDetail product={productoBuscado}/>
   </>

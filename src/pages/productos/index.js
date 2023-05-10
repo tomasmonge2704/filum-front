@@ -7,7 +7,7 @@ export default function App() {
   const { products, setProducts } = useContext(ProductsContext);
   return (
     <>
-      <NavbarComponent page="/productos" />
+      <NavbarComponent/>
       <Spacer y={3} />
       <Container>
       <Grid.Container gap={2} justify="flex-start">

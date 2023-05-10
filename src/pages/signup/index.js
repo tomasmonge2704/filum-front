@@ -7,6 +7,7 @@ export default function LoginPage() {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const handleMailChange = (event) => setMail(event.target.value);
   const handleUsernameChange = (event) => setUsername(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
@@ -25,7 +26,8 @@ export default function LoginPage() {
       localStorage.setItem("token", token);
       window.location.href = "/";
     } else {
-      // mostrar un error al usuario
+        const res = await response.json()
+        setErrorMessage(res.mensaje)
     }
   };
   return (
@@ -41,16 +43,18 @@ export default function LoginPage() {
           <Input
             value={username}
             onChange={handleUsernameChange}
+            status={errorMessage == "el usuario ya se encuentra registrado." ? "error" : ""}
             fullWidth
-            label="Ingrese el nombre de usuario"
+            label={errorMessage == "el usuario ya se encuentra registrado." ? errorMessage : "Ingrese el nombre de usuario"}
           />
           <Spacer y={1} />
           <Input
             value={mail}
             type="email"
             onChange={handleMailChange}
+            status={errorMessage == "El correo electrónico ya se encuentra registrado." ? "error" : ""}
             fullWidth
-            label="Ingrese su correo electronico"
+            label={errorMessage == "El correo electrónico ya se encuentra registrado." ? errorMessage : "Ingrese su correo electronico"}
           />
           <Spacer y={1} />
           <Input.Password

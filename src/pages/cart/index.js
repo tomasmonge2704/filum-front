@@ -12,7 +12,7 @@ export default function App() {
     useContext(CartContext);
   return (
     <>
-      <NavbarComponent page="/cart" />
+      <NavbarComponent/>
       <Spacer y={3} />
       <Container gap={0}>
         {cart.length == 0 ? (

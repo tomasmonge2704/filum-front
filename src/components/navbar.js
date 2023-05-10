@@ -8,6 +8,7 @@ import { CartIcon } from "./icons/CartIcon.js";
 import { useContext } from "react";
 import { UserContext } from "@/context/userContext";
 import { CartContext } from "@/context/cartContext.js";
+import { useRouter } from "next/router";
 import Router from "next/router";
 
 const StyledButton = styled("button", {
@@ -19,19 +20,9 @@ const StyledButton = styled("button", {
   }
 });
 
-export default function NavbarComponent({ page }) {
-  const collapseItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
+export default function NavbarComponent() {
+  const router = useRouter();
+  const page = router.pathname
   const navbarLinks = [
     { nombre: "Home", href: "/" },
     { nombre: "Productos", href: "/productos" },
@@ -44,8 +35,8 @@ export default function NavbarComponent({ page }) {
       localStorage.removeItem("token");
       Router.push("/login");
     }
-    if (e == "orders"){
-      Router.push("/orders");
+    if (e == "Mis compras"){
+      Router.push("/mis-compras");
     }
     if (e == "profile"){
       Router.push("/user");
@@ -140,8 +131,8 @@ export default function NavbarComponent({ page }) {
                 {user.username}
               </Text>
             </Dropdown.Item>
-            <Dropdown.Item key="orders" withDivider>
-              My Orders
+            <Dropdown.Item key="Mis compras" withDivider>
+              Mis Compras
             </Dropdown.Item>
             <Dropdown.Item key="logout" id="logout" withDivider color="error">
               Log Out
@@ -150,23 +141,23 @@ export default function NavbarComponent({ page }) {
         </Dropdown>
       </Navbar.Content>
       <Navbar.Collapse>
-        {collapseItems.map((item, index) => (
+        {navbarLinks.map((item, index) => (
           <Navbar.CollapseItem
-            key={item}
+            key={index}
             activeColor="secondary"
-            css={{
-              color: index === collapseItems.length - 1 ? "$error" : "",
-            }}
-            isActive={index === 2}
+            isActive={page == item.href ? true : false}
           >
             <Link
               color="inherit"
               css={{
                 minWidth: "100%",
               }}
-              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                Router.push(item.href);
+              }}
             >
-              {item}
+              {item.nombre}
             </Link>
           </Navbar.CollapseItem>
         ))}

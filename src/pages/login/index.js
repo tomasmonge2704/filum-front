@@ -38,7 +38,7 @@ export default function LoginPage() {
             value={username}
             onChange={handleUsernameChange}
             fullWidth
-            color={errorMessage == "Usuario no encontrado" ? "error" : "" }
+            status={errorMessage == "Usuario no encontrado" ? "error" : "" }
             label={errorMessage == "Usuario no encontrado" ? errorMessage : "Username" }
           />
           <Spacer y={1} />
@@ -46,7 +46,7 @@ export default function LoginPage() {
             value={password}
             onChange={handlePasswordChange}
             fullWidth
-            color={errorMessage == "Contraseña incorrecta" ? "error" : "" }
+            status={errorMessage == "Contraseña incorrecta" ? "error" : "" }
             label={errorMessage == "Contraseña incorrecta" ? errorMessage : "Contraseña" }
           />
           <Spacer y={0.5} />
