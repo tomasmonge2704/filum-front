@@ -76,7 +76,7 @@ export default function ProductDetail({ product }) {
           </Grid>
         </Grid.Container>
       ) : (
-        <Container justify="center">
+        <Container css={{display:"flex",justifyContent:"center",alignContent:"center",height:"60vh"}}>
           <Loading />
         </Container>
       )}

@@ -3,6 +3,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { UserProvider } from "@/context/userContext";
 import { CartProvider } from "@/context/cartContext";
 import { ProductProvider } from "@/context/productsContext";
+import { ComprasProvider } from "@/context/comprasContext";
 import { CheckAuth } from "@/components/auth";
 import '../styles/globals.css'
 
@@ -17,6 +18,7 @@ const darkTheme = createTheme({
 function MyApp({ Component, pageProps }) {
   return (
     <UserProvider>
+      <ComprasProvider>
       <CartProvider>
       <ProductProvider>
           <NextThemesProvider
@@ -35,6 +37,7 @@ function MyApp({ Component, pageProps }) {
           </NextThemesProvider>
       </ProductProvider>
       </CartProvider>
+      </ComprasProvider>
     </UserProvider>
   );
 }

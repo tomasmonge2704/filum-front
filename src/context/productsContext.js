@@ -6,18 +6,21 @@ export const ProductsContext = createContext();
 export function ProductProvider({ children }) {
   const [products, setProducts] = useState([]);
   const getProducts = async (token) => {
-    await fetch(`${API_URL}/api/producto`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authentication: `${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-       setProducts(data);
+    try {
+      const response = await fetch(`${API_URL}/api/producto`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authentication: `${token}`,
+        },
       });
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      setProducts([]);
+    }
   };
+  
   const [token, setToken] = useState('');
   useEffect(() => {
     setToken(localStorage.getItem("token"));

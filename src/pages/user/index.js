@@ -1,7 +1,7 @@
 import NavbarComponent from "@/components/navbar";
 import { UserContext } from "@/context/userContext";
 import React from "react";
-import MisCompras from "@/components/misCompras";
+import MisComprasContenedor from "@/components/compras/contenedor";
 import {
   Avatar,
   Container,
@@ -13,52 +13,6 @@ import {
 } from "@nextui-org/react";
 export default function App() {
   const { user, setUser } = React.useContext(UserContext);
-  const compras = [
-    {
-      nombre: "orange",
-      status: "Entregado",
-      precio: 500,
-      imageURL: "/images/fruit-1.jpeg",
-      cantidad: 1,
-      fechaCompra:"28/04/2023",
-      fechaRecibido:"01/05/2023",
-      descripcion:
-        "adsaddssdadadadasdadadasdafdgdddfmnsjasdadghashhajgasdasdads",
-    },
-    {
-      nombre: "orange",
-      status: "Pendiente",
-      precio: 500,
-      imageURL: "/images/fruit-1.jpeg",
-      cantidad: 1,
-      fechaCompra:"29/04/2023",
-      fechaRecibido:"01/05/2023",
-      descripcion:
-        "adsaddssdadadadasdadadasdafdgdddfmnsjasdadghashhajgasdasdads",
-    },
-    {
-      nombre: "orange",
-      status: "Entregado",
-      precio: 500,
-      imageURL: "/images/fruit-1.jpeg",
-      cantidad: 1,
-      fechaCompra:"01/05/2023",
-      fechaRecibido:"01/05/2023",
-      descripcion:
-        "adsaddssdadadadasdadadasdafdgdddfmnsjasdadghashhajgasdasdads",
-    },
-    {
-      nombre: "orange",
-      status: "Pendiente",
-      precio: 500,
-      imageURL: "/images/fruit-1.jpeg",
-      cantidad: 1,
-      fechaCompra:"03/05/2023",
-      fechaRecibido:"01/05/2023",
-      descripcion:
-        "adsaddssdadadadasdadadasdafdgdddfmnsjasdadghashhajgasdasdads",
-    },
-  ];
   return (
     <>
       <NavbarComponent/>
@@ -103,10 +57,7 @@ export default function App() {
                 <Spacer y={1} />
               </Collapse>
               <Collapse title="Mis compras">
-                <MisCompras
-                  compras={compras}
-                  totalPagination={compras.length / 2}
-                />
+                <MisComprasContenedor/>
               </Collapse>
             </Collapse.Group>
           </Grid>

@@ -1,4 +1,5 @@
 import { Grid, Image, Button,Card,Text, Container } from "@nextui-org/react";
+import Router from "next/router";
 export default function CompraItem({ item, index }) {
   return (
     <Card isHoverable variant="bordered">
@@ -15,24 +16,24 @@ export default function CompraItem({ item, index }) {
     >
       <Grid xs={3}>
         <Image
-          src={"https://nextui.org" + item.imageURL}
+          src={"https://nextui.org" + item.productData.imageURL}
           objectFit="cover"
           width="100%"
           height={150}
           css={{ borderRadius: "4%" }}
-          alt={item.nombre}
+          alt={item.productData.nombre}
         />
       </Grid>
       <Grid xs={7}>
         <Container css={{ textAlign: "start",display:"grid" }}>
         {item.status == "Entregado" ? (<Text color="success">{item.status} | {item.fechaRecibido}</Text>) : (<Text color="primary">{item.status}</Text>)}
-        <Text>{item.nombre}</Text>
-        <Text>${item.precio}</Text>
-        <Text>{item.cantidad} unidades.</Text>
+        <Text>{item.productData.nombre}</Text>
+        <Text>${item.productData.precio}</Text>
+        <Text>{item.productData.cantidad} unidades.</Text>
         <Text>
-        {item.descripcion.length > 20
-            ? item.descripcion.substring(0, 20) + "..."
-            : item.descripcion}
+        {item.productData.descripcion.length > 20
+            ? item.productData.descripcion.substring(0, 20) + "..."
+            : item.productData.descripcion}
         </Text>
         </Container>
       </Grid>
@@ -40,10 +41,10 @@ export default function CompraItem({ item, index }) {
         xs={2}
       >
         <Container css={{display:"grid"}}>
-        <Button shadow color="secondary" auto>
+        <Button onClick={() => Router.push('/mis-compras/' + item._id)} shadow color="secondary" auto>
           Ver compra
         </Button>
-        <Button shadow color="primary" auto>
+        <Button onClick={() => Router.push('/producto/' + item.productData._id)} shadow color="primary" auto>
           Volver a Comprar
         </Button>
         </Container>
