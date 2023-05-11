@@ -11,7 +11,7 @@ const StyledButton = styled("button", {
     }
   });
 
-export default function CartItem({changeCantidad, item,index,removeFromCart }) {
+export default function CartItem({changeCantidad, item,removeFromCart }) {
     const [selected, setSelected] = React.useState(new Set([item.cantidad]));
     const selectedValue = React.useMemo(
       () =>Array.from(selected).join(", ").replaceAll("_", " "),

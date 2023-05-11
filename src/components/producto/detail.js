@@ -11,22 +11,19 @@ import {
 } from "@nextui-org/react";
 import { CartContext } from "@/context/cartContext";
 export default function ProductDetail({ product }) {
-    const {  addToCart } = React.useContext(CartContext);
-    const [selected, setSelected] = React.useState([1]);
-    const selectedValue = React.useMemo(
-      () =>Array.from(selected).join(", ").replaceAll("_", " "),
-      [selected]
-    );  
-    React.useMemo(
-        () =>{
-            product.cantidad = Number(selectedValue);
-        },
-        [selectedValue]
-      ); 
-    
-    const handleAddToCart = () => {
-        addToCart(product);
-      };
+  const { addToCart } = React.useContext(CartContext);
+  const [selected, setSelected] = React.useState([1]);
+  const selectedValue = React.useMemo(
+    () => Array.from(selected).join(", ").replaceAll("_", " "),
+    [selected]
+  );
+  React.useMemo(() => {
+    if (product) product.cantidad = Number(selectedValue);
+  }, [selectedValue]);
+
+  const handleAddToCart = () => {
+    addToCart(product);
+  };
 
   return (
     <>

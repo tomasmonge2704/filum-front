@@ -12,7 +12,7 @@ export default function App() {
       <Container>
       <Grid.Container gap={2} justify="flex-start">
       {products.map((item, index) => (
-        <ItemProductCard item={item} index={index} />
+        <ItemProductCard key={index} item={item} index={index} />
       ))}
     </Grid.Container>
     </Container>

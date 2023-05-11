@@ -19,6 +19,7 @@ export default function Cart({
             <Spacer y={2} />
             {cart.map((item, index) => (
               <CartItem
+                key={index}
                 changeCantidad={changeCantidad}
                 item={item}
                 index={index}
