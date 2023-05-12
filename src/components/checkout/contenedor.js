@@ -5,10 +5,10 @@ import {
   Spacer,
   Card,
   Checkbox,
-  Button,
 } from "@nextui-org/react";
 import { useState } from "react";
 import Domicilio from "./domicilio";
+import Cuenta from "./cuenta";
 export default function CheckoutContenedor({ cart, total }) {
   const [selected, setSelected] = useState("a domicilio");
   return (
@@ -54,33 +54,7 @@ export default function CheckoutContenedor({ cart, total }) {
           </Container>
         </Grid>
         <Grid xs={3}>
-          <Card>
-            <Card.Body>
-              <Card variant="flat">
-                <Card.Body>
-                  <Container>
-                    {cart.map((item, index) => (
-                      <Container css={{ display: "flex", justifyContent: "space-between" }} key={index}>
-                        <Text size="$xl">{item.nombre} </Text>
-                        <Text size="$xl">${item.precio}</Text>
-                      </Container>
-                    ))}
-                    <Spacer y={1} />
-                    <div className="separator">
-                        <hr className="line" style={{height:'2px',backgroundColor:'#adadad'}}/>
-                    </div>
-                    <Spacer y={1} />
-                    <Container css={{ display: "flex", justifyContent: "space-between" }}>
-                    <Text size="$xl">Pagás </Text>
-                    <Text size="$xl">${total}</Text>
-                    </Container>
-                  </Container>
-                </Card.Body>
-              </Card>
-              <Spacer y={1} />
-              <Button>Continuar</Button>
-            </Card.Body>
-          </Card>
+          <Cuenta cart={cart} total={total} />
         </Grid>
         <Grid xs={2} />
       </Grid.Container>
