@@ -70,6 +70,14 @@ export default function LoginPage() {
           <Spacer y={1} />
           <Row css={{alignItems:'center'}}>No tenes una cuenta?<Link block href="/signup">Signup</Link></Row>
           <Spacer y={1} />
+          <Button
+            shadow
+            variant="contained"
+            color="error"
+            css={{ width: "100%" }}
+          >
+            Iniciar sesión con Google
+          </Button>
         </form>
         </Container>
   );
