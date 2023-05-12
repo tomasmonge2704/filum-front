@@ -25,8 +25,7 @@ export default function NavbarComponent() {
   const page = router.pathname
   const navbarLinks = [
     { nombre: "Home", href: "/" },
-    { nombre: "Productos", href: "/productos" },
-    { nombre: "Cart", href: "/cart" },
+    { nombre: "Productos", href: "/productos" }
   ];
   const { setTheme } = useNextTheme();
   const { isDark, type } = useTheme();
@@ -55,10 +54,15 @@ export default function NavbarComponent() {
           },
         }}
       >
+        <StyledButton css={{display:"flex",alignItems:"center"}} onClick={(e) => {
+              e.preventDefault();
+              Router.push('/');
+            }}>
         <Logo />
         <Text b color="inherit" hideIn="xs">
           ACME
         </Text>
+        </StyledButton>
       </Navbar.Brand>
       <Navbar.Content
         enableCursorHighlight

@@ -11,7 +11,7 @@ const reducer = (state, action) => {
         const productInCartIndex = state.findIndex((item) => item._id === id);
         if (productInCartIndex >= 0) {
           const newState = structuredClone(state);
-          newState[productInCartIndex].cantidad = newState[productInCartIndex].cantidad + cantidad;
+          newState[productInCartIndex].cantidad = Number(newState[productInCartIndex].cantidad) + Number(cantidad);
           return newState;
       }
       return [...state, { ...actionPayload, cantidad }];

@@ -1,13 +1,16 @@
 import React from "react";
-import { useState, useEffect,useContext } from "react";
-import { Pagination, Container, Spacer } from "@nextui-org/react";
+import { useState, useEffect } from "react";
+import { Pagination, Container, Spacer,Image,Text } from "@nextui-org/react";
 import CompraItem from "./item";
 import moment from "moment";
-import { datosCompras } from "./datos";
+import { useContext } from "react";
 import { ComprasContext } from "@/context/comprasContext";
+
 export default function MisComprasContenedor() {
+  const { compras } = useContext(ComprasContext);
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortedCompras, setSortedCompras] = useState(datosCompras);
+  const [sortedCompras, setSortedCompras] = useState([]);
+  const [comprasLoaded, setComprasLoaded] = useState(false);
 
   useEffect(() => {
     const sortCompras = (compras) => {
@@ -19,11 +22,29 @@ export default function MisComprasContenedor() {
       return [...compras].sort(compareFn);
     };
 
-    if (sortedCompras.length > 1) {
-      const sorted = sortCompras(sortedCompras);
+    if (compras.length > 0) {
+      const sorted = sortCompras(compras);
       setSortedCompras(sorted);
+      setComprasLoaded(true);
     }
-  }, [datosCompras]);
+  }, [compras]);
+
+  if (!comprasLoaded) {
+    return <Container css={{display:"flex",justifyContent:"center"}}>
+      <Text h1 size={60}
+        css={{
+          textGradient: "45deg, $blue600 -20%, $pink600 50%",
+        }}
+        weight="bold">No tienes compras actualmente</Text>
+      <Image
+    src="/emptyCart.png"
+    objectFit="contain"
+    width="100%"
+    height={400}
+    css={{ borderRadius: "4%" }}
+    alt='carritoVacio'
+  /></Container>
+  }
 
   return (
     <Container>

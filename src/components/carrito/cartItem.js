@@ -1,5 +1,5 @@
 import React from "react";
-import { styled, Image, Grid, Dropdown } from "@nextui-org/react";
+import { styled, Image, Grid, Dropdown,Card } from "@nextui-org/react";
 import { DeleteIcon } from "../icons/DeleteIcon";
 
 const StyledButton = styled("button", {
@@ -28,6 +28,7 @@ export default function CartItem({changeCantidad, item,removeFromCart }) {
         removeFromCart(item)
     }
   return (
+    <Card><Card.Body>
     <Grid.Container gap={1} justify="center" css={{borderTop:'5px Black'}}>
       <Grid xs={2}>
         <Image
@@ -73,5 +74,6 @@ export default function CartItem({changeCantidad, item,removeFromCart }) {
       </StyledButton>
       </Grid>
     </Grid.Container>
+    </Card.Body></Card>
   );
 }
