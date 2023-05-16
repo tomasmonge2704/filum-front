@@ -10,9 +10,77 @@ import {
   Text,
   Collapse,
   Input,
+  Tooltip,
+  Button,
 } from "@nextui-org/react";
+import { IconButton } from "@/components/icons/iconButton";
+import { EditIcon } from "@/components/icons/editIcon";
+const API_URL = process.env.NEXT_PUBLIC_API_KEY;
 export default function App() {
   const { user, setUser } = React.useContext(UserContext);
+  const [editableTelefono, setEditableTelefono] = React.useState(false);
+  const [editableMail, setEditableMail] = React.useState(false);
+  const [mailError,setMailError] = React.useState(false);
+  const [telefono, setTelefono] = React.useState('');
+  const [mail, setMail] = React.useState('');
+  const handleUpdateTelefono = async () => {
+    try {
+      const response = await fetch(`${API_URL}/user/${user.username}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authentication: `${localStorage.getItem("token")}`,
+        },
+        body:JSON.stringify({
+          telefono:telefono
+        })
+      });
+      const data = await response.json();
+      localStorage.setItem("token", data.token);
+      setEditableTelefono(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleUpdateMail = async () => {
+    try {
+      const response = await fetch(`${API_URL}/user/${user.username}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authentication: `${localStorage.getItem("token")}`,
+        },
+        body:JSON.stringify({
+          mail:mail
+        })
+      });
+      const data = await response.json();
+      if(data.error){
+        setMailError(true)
+      }else{
+        localStorage.setItem("token", data.token);
+        setEditableMail(false);
+      }
+    } catch (error) {
+      alert(error);
+    }
+  };
+  React.useEffect(() => {
+    setTelefono(user.celular || "");
+    setMail(user.mail || "");
+  }, [user]);
+  const handleEditableTelefono = () => {
+    setEditableTelefono(true);
+  };
+  const handleEditableMail = () => {
+    setEditableMail(true);
+  };
+  const handleEditableTelefonoClose = () => {
+    setEditableTelefono(false);
+  };
+  const handleEditableMailClose = () => {
+    setEditableMail(false);
+  };
   return (
     <>
       <NavbarComponent />
@@ -54,20 +122,80 @@ export default function App() {
                 ) : (
                   <></>
                 )}
+                {editableMail == true ? (
+                  <Grid.Container gap={2}>
+                    <Grid xs={7}>
+                      <Input
+                        label={mailError == true ? "El mail ya se encuentra registrado." : "Mail"}
+                        fullWidth
+                        status={mailError == true ? "error" : "primary"}
+                        initialValue={mail}
+                        onChange={(e) => setMail(e.target.value)}
+                      />
+                    </Grid>
+                    <Grid xs={5}>
+                      <Container css={{display:"flex",justifyContent:"space-between",alignContent:"flex-end" }}>
+                      <Button onClick={handleUpdateMail}>Guardar Cambios</Button>
+                      <Button onClick={handleEditableMailClose}>Cancelar</Button>
+                      </Container>
+                    </Grid>
+                  </Grid.Container>
+                ) : (
+                  <Input
+                    label="Mail"
+                    fullWidth
+                    readOnly
+                    initialValue={mail}
+                    contentRightStyling={false}
+                    contentRight={
+                      <Container>
+                        <Tooltip content="Edit user">
+                          <IconButton onClick={handleEditableMail}>
+                            <EditIcon size={20} fill="#979797" />
+                          </IconButton>
+                        </Tooltip>
+                      </Container>
+                    }
+                  />
+                )}
 
-                <Input
-                  readOnly
-                  label="Mail"
-                  fullWidth
-                  initialValue={user.mail}
-                />
                 <Spacer y={1} />
-                <Input
-                  readOnly
-                  label="Telefono"
-                  fullWidth
-                  initialValue={user.celular}
-                />
+                {editableTelefono == true ? (
+                  <Grid.Container gap={2}>
+                    <Grid xs={7}>
+                      <Input
+                        label="Telefono"
+                        fullWidth
+                        onChange={(e) => setTelefono(e.target.value)}
+                        status="primary"
+                        initialValue={telefono}
+                      />
+                    </Grid>
+                    <Grid xs={5}>
+                      <Container css={{display:"flex",justifyContent:"space-between",alignContent:"flex-end" }}>
+                      <Button onClick={handleUpdateTelefono}>Guardar Cambios</Button>
+                      <Button onClick={handleEditableTelefonoClose}>Cancelar</Button>
+                      </Container>
+                    </Grid>
+                  </Grid.Container>
+                ) : (
+                  <Input
+                    label="Telefono"
+                    fullWidth
+                    readOnly
+                    initialValue={telefono}
+                    contentRightStyling={false}
+                    contentRight={
+                      <Container>
+                        <Tooltip content="Edit user">
+                          <IconButton onClick={handleEditableTelefono}>
+                            <EditIcon size={20} fill="#979797" />
+                          </IconButton>
+                        </Tooltip>
+                      </Container>
+                    }
+                  />
+                )}
               </Collapse>
               <Collapse title="Mis compras">
                 <MisComprasContenedor />

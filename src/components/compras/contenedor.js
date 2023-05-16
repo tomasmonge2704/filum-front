@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Pagination, Container, Spacer,Image,Text } from "@nextui-org/react";
+import { Pagination, Container, Spacer, Image, Text } from "@nextui-org/react";
 import CompraItem from "./item";
 import moment from "moment";
 import { useContext } from "react";
@@ -15,9 +15,9 @@ export default function MisComprasContenedor() {
   useEffect(() => {
     const sortCompras = (compras) => {
       const compareFn = (a, b) => {
-        const fechaA = moment(a.fechaCompra, "DD/MM/YYYY").toDate();
-        const fechaB = moment(b.fechaCompra, "DD/MM/YYYY").toDate();
-        return fechaB.getTime() - fechaA.getTime();
+        const fechaA = moment(a.fechaCompra, "YYYY-MM-DDTHH:mm:ss.SSSZ").format("DD/MM/YYYY");
+        const fechaB = moment(b.fechaCompra, "YYYY-MM-DDTHH:mm:ss.SSSZ").format("DD/MM/YYYY");
+        return moment(fechaB, "DD/MM/YYYY").toDate() - moment(fechaA, "DD/MM/YYYY").toDate();
       };
       return [...compras].sort(compareFn);
     };
@@ -30,20 +30,28 @@ export default function MisComprasContenedor() {
   }, [compras]);
 
   if (!comprasLoaded) {
-    return <Container css={{display:"flex",justifyContent:"center"}}>
-      <Text h1 size={60}
-        css={{
-          textGradient: "45deg, $blue600 -20%, $pink600 50%",
-        }}
-        weight="bold">No tienes compras actualmente</Text>
-      <Image
-    src="/emptyCart.png"
-    objectFit="contain"
-    width="100%"
-    height={400}
-    css={{ borderRadius: "4%" }}
-    alt='carritoVacio'
-  /></Container>
+    return (
+      <Container css={{ display: "flex", justifyContent: "center" }}>
+        <Text
+          h1
+          size={60}
+          css={{
+            textGradient: "45deg, $blue600 -20%, $pink600 50%",
+          }}
+          weight="bold"
+        >
+          No tienes compras actualmente
+        </Text>
+        <Image
+          src="/emptyCart.png"
+          objectFit="contain"
+          width="100%"
+          height={400}
+          css={{ borderRadius: "4%" }}
+          alt="carritoVacio"
+        />
+      </Container>
+    );
   }
 
   return (
@@ -68,3 +76,4 @@ export default function MisComprasContenedor() {
     </Container>
   );
 }
+
