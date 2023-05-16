@@ -1,47 +1,124 @@
 import {
-  Container,
-  Input,
-  Card,
-  Button,
-  Spacer,
-  Text,
-} from "@nextui-org/react";
-export default function Domicilio({ tipoEnvio }) {
-  return (
-    <Container>
-      <Text h3>¿Cómo querés recibir o retirar tu compra?</Text>
-      <Spacer y={1} />
-      <Text size={20}>Domicilio</Text>
-      <Spacer y={1} />
-      <Card>
-        <Card.Body>
-          {tipoEnvio == "a domicilio" ? (
-            <>
-              <Input clearable label="Calle" placeholder="" />
-              <Spacer y={1} />
+    Container,
+    Input,
+    Card,
+    Button,
+    Spacer,
+    Text,
+  } from "@nextui-org/react";
+  import { UserContext } from "@/context/userContext";
+  import { useContext, useState, useEffect } from "react";
+  
+  const API_URL = process.env.NEXT_PUBLIC_API_KEY;
+  
+  export default function Domicilio({ tipoEnvio }) {
+    const { user, setUser } = useContext(UserContext);
+    const [calle, setCalle] = useState("");
+    const [altura, setAltura] = useState("");
+    const [piso, setPiso] = useState("");
+    const [token, setToken] = useState("");
+    const [editable, setEditable] = useState(false);
+  
+    useEffect(() => {
+      setToken(localStorage.getItem("token"));
+    }, []);
+  
+    useEffect(() => {
+      setCalle(user.adress?.calle || "");
+      setAltura(user.adress?.altura || "");
+      setPiso(user.adress?.piso || "");
+    }, [user]);
+  
+    const handleEditable = () => {
+      setEditable(true);
+    };
+  
+    const handleDomicilio = async () => {
+        const datos = { adress: { calle, altura, piso } };
+        const body = JSON.stringify(datos);
+        try {
+          const response = await fetch(`${API_URL}/user/${user.username}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authentication: `${token}`,
+            },
+            body,
+          });
+          const data = await response.json();
+          localStorage.setItem("token", data.token);
+          setUser(data.usuario);
+          setEditable(false);
+        } catch (error) {
+          console.log(error);
+        }
+      };      
+  
+    return (
+      <Container>
+        <Text size={20}>Domicilio</Text>
+        <Spacer y={1} />
+        <Card>
+          <Card.Body>
+            {tipoEnvio === "a domicilio" ? (
+              <>
+                <Input
+                  label="Calle"
+                  readOnly={!editable}
+                  value={calle}
+                  onChange={(e) => setCalle(e.target.value)}
+                />
+                <Spacer y={1} />
+                <Container
+                  css={{
+                    display: "flex",
+                    flexWrap: "nowrap",
+                    justifyContent: "space-evenly",
+                    alignItems: "flex-end",
+                    padding: "0px",
+                  }}
+                >
+                  <Input
+                    label="Altura"
+                    readOnly={!editable}
+                    value={altura}
+                    onChange={(e) => setAltura(e.target.value)}
+                  />
+                  <Spacer x={1} />
+                  <Input
+                    label="Piso"
+                    readOnly={!editable}
+                    value={piso}
+                    onChange={(e) => setPiso(e.target.value)}
+                  />
+                  <Spacer x={1} />
+                  {editable ? (
+                    <Button shadow onClick={handleDomicilio}>
+                      Guardar domicilio
+                    </Button>
+                  ) : (
+                    <Button shadow onClick={handleEditable}>
+                      Editar
+                    </Button>
+                  )}
+                </Container>
+              </>
+            ) : (
               <Container
                 css={{
                   display: "flex",
-                  flexWrap: "nowrap",
-                  justifyContent: "space-evenly",
-                  alignItems: "flex-end",
-                  padding: "0px",
+                  justifyContent: "center",
+                  textAlign: "center",
                 }}
               >
-                <Input clearable label="Altura" placeholder="" />
-                <Spacer x={1} />
-                <Input clearable label="Piso" placeholder="" />
-                <Spacer x={1} />
-                <Button shadow>Guardar domicilio</Button>
+                <Text blockquote css={{ width: "100%" }}>
+                  No aplica
+                </Text>
               </Container>
-            </>
-          ) : (
-            <Container css={{ display: "flex", justifyContent: "center",textAlign:"center" }}>
-              <Text blockquote css={{width:"100%"}}>No aplica</Text>
-            </Container>
-          )}
-        </Card.Body>
-      </Card>
-    </Container>
-  );
-}
+            )}
+          </Card.Body>
+        </Card>
+      </Container>
+    );
+  }
+  

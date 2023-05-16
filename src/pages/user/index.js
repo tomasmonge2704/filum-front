@@ -15,7 +15,7 @@ export default function App() {
   const { user, setUser } = React.useContext(UserContext);
   return (
     <>
-      <NavbarComponent/>
+      <NavbarComponent />
       <Spacer y={2} />
       <Container css={{ display: "flex", justifyContent: "center" }}>
         <Grid.Container gap={2}>
@@ -41,13 +41,20 @@ export default function App() {
                   initialValue={user.username}
                 />
                 <Spacer y={1} />
-                <Input
-                  readOnly
-                  label="Rol"
-                  fullWidth
-                  initialValue={user.role}
-                />
-                <Spacer y={1} />
+                {user.role == "admin" ? (
+                  <>
+                    <Input
+                      readOnly
+                      label="Rol"
+                      fullWidth
+                      initialValue={user.role}
+                    />
+                    <Spacer y={1} />
+                  </>
+                ) : (
+                  <></>
+                )}
+
                 <Input
                   readOnly
                   label="Mail"
@@ -55,9 +62,15 @@ export default function App() {
                   initialValue={user.mail}
                 />
                 <Spacer y={1} />
+                <Input
+                  readOnly
+                  label="Telefono"
+                  fullWidth
+                  initialValue={user.celular}
+                />
               </Collapse>
               <Collapse title="Mis compras">
-                <MisComprasContenedor/>
+                <MisComprasContenedor />
               </Collapse>
             </Collapse.Group>
           </Grid>

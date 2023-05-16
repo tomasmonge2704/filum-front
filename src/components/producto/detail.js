@@ -10,6 +10,7 @@ import {
   Spacer,
 } from "@nextui-org/react";
 import { CartContext } from "@/context/cartContext";
+import Router from "next/router";
 export default function ProductDetail({ product }) {
   const { addToCart } = React.useContext(CartContext);
   const [selected, setSelected] = React.useState([1]);
@@ -23,6 +24,10 @@ export default function ProductDetail({ product }) {
 
   const handleAddToCart = () => {
     addToCart(product);
+  };
+  const handleAddToCartCheckout = () => {
+    addToCart(product);
+    Router.push('/checkout')
   };
 
   return (
@@ -72,6 +77,8 @@ export default function ProductDetail({ product }) {
               </Dropdown>
               <Spacer y={2} />
               <Button onPress={handleAddToCart}>Agregar al carrito</Button>
+              <Spacer y={1} />
+              <Button onPress={handleAddToCartCheckout}>Comprar</Button>
             </Container>
           </Grid>
         </Grid.Container>

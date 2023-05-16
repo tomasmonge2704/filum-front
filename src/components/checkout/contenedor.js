@@ -9,6 +9,7 @@ import {
 import { useState } from "react";
 import Domicilio from "./domicilio";
 import Cuenta from "./cuenta";
+
 export default function CheckoutContenedor({ cart, total }) {
   const [selected, setSelected] = useState("a domicilio");
   return (
@@ -18,27 +19,9 @@ export default function CheckoutContenedor({ cart, total }) {
         <Grid xs={1} />
         <Grid xs={6}>
           <Container>
-            <Domicilio tipoEnvio={selected} />
-            <Spacer y={2} />
+            <Text h3>¿Cómo querés recibir o retirar tu compra?</Text>
+            <Spacer y={1} />
             <Container>
-              <Text size={20}>Recibir compra</Text>
-              <Spacer y={1} />
-              <Card>
-                <Card.Body>
-                  <Checkbox
-                    color="primary"
-                    isSelected={selected == "a domicilio" ? true : false}
-                    onChange={() => setSelected("a domicilio")}
-                  >
-                    Envio a Domicilio por correo
-                  </Checkbox>
-                </Card.Body>
-              </Card>
-            </Container>
-            <Spacer y={2} />
-            <Container>
-              <Text size={20}>Retirar compra</Text>
-              <Spacer y={1} />
               <Card>
                 <Card.Body>
                   <Checkbox
@@ -51,6 +34,24 @@ export default function CheckoutContenedor({ cart, total }) {
                 </Card.Body>
               </Card>
             </Container>
+            <Spacer y={1} />
+
+            <Container>
+              <Card>
+                <Card.Body>
+                  <Checkbox
+                    color="primary"
+                    isSelected={selected == "a domicilio" ? true : false}
+                    onChange={() => setSelected("a domicilio")}
+                  >
+                    Envio a Domicilio por correo
+                  </Checkbox>
+                </Card.Body>
+              </Card>
+            </Container>
+
+            <Spacer y={2} />
+            <Domicilio tipoEnvio={selected} />
           </Container>
         </Grid>
         <Grid xs={3}>
@@ -58,6 +59,7 @@ export default function CheckoutContenedor({ cart, total }) {
         </Grid>
         <Grid xs={2} />
       </Grid.Container>
+      <Spacer y={4} />
     </Container>
   );
 }

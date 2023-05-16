@@ -5,6 +5,7 @@ import { CartProvider } from "@/context/cartContext";
 import { ProductProvider } from "@/context/productsContext";
 import { ComprasProvider } from "@/context/comprasContext";
 import { CheckAuth } from "@/components/auth";
+import { FloatingWhatsApp } from 'react-floating-whatsapp'
 import '../styles/globals.css'
 
 const lightTheme = createTheme({
@@ -31,6 +32,7 @@ function MyApp({ Component, pageProps }) {
           >
             <NextUIProvider>
               <CheckAuth>
+              <FloatingWhatsApp accountName="Test" />
               <Component {...pageProps} />
               </CheckAuth>
             </NextUIProvider>
