@@ -2,6 +2,7 @@ import { Text, Spacer, Card, Button, Grid, Container } from "@nextui-org/react";
 import React from "react";
 import CartItem from "./cartItem";
 import Router from "next/router";
+import { isMobile } from "react-device-detect";
 export default function Cart({
   cart,
   total,
@@ -13,13 +14,13 @@ export default function Cart({
     Router.push('/checkout')
   }
   return (
-    <Grid.Container gap={3} justify="center">
+    <Grid.Container gap={isMobile ? 0 : 3} justify="center">
       <Grid xs={12}>
         <Container>
         <Text h1> Carrito</Text>
         </Container>
       </Grid>
-      <Grid xs={8}>
+      <Grid xs={isMobile ? 12 : 8}>
         <Container>
           {cart.map((item, index) => (
             <>
@@ -39,9 +40,10 @@ export default function Cart({
               Clear Cart
             </Button>
           </Container>
+          <Spacer y={2} />
         </Container>
       </Grid>
-      <Grid xs={4}>
+      <Grid xs={isMobile ? 10.5 : 4}>
         <Card css={{ maxHeight: "300px" }}>
           <Card.Body>
             <Container css={{ display: "flex", justifyContent: "center" }}>

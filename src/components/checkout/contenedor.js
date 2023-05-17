@@ -9,15 +9,15 @@ import {
 import { useState } from "react";
 import Domicilio from "./domicilio";
 import Cuenta from "./cuenta";
-
+import { isMobile } from "react-device-detect";
 export default function CheckoutContenedor({ cart, total }) {
   const [selected, setSelected] = useState("a domicilio");
   return (
     <Container>
-      <Spacer y={3} />
+      <Spacer y={isMobile ? 1 : 3} />
       <Grid.Container>
-        <Grid xs={1} />
-        <Grid xs={6}>
+        <Grid xs={isMobile ? 0 : 1} />
+        <Grid xs={isMobile ? 12 : 6}>
           <Container>
             <Text h3>¿Cómo querés recibir o retirar tu compra?</Text>
             <Spacer y={1} />
@@ -52,10 +52,12 @@ export default function CheckoutContenedor({ cart, total }) {
 
             <Spacer y={2} />
             <Domicilio tipoEnvio={selected} />
+            <Spacer y={isMobile ? 1 : 0} />
           </Container>
         </Grid>
-        <Grid xs={3}>
-          <Cuenta cart={cart} total={total} />
+        
+        <Grid xs={isMobile ? 12 : 3}>
+          <Cuenta cart={cart} total={total} envio={selected} />
         </Grid>
         <Grid xs={2} />
       </Grid.Container>

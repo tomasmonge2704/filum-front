@@ -3,8 +3,11 @@ import React from "react";
 import CartItemView from "../carrito/cartItemView";
 import ContactoCard from "./constactoCard";
 import MercadoPagoCard from "./mercadoPago";
-export default function Cuenta({ cart, total }) {
+import { UserContext } from "@/context/userContext";
+export default function Cuenta({ cart, total,envio }) {
   const [selected, setSelected] = React.useState(false);
+  const { user } = React.useContext(UserContext);
+
   return (
     <Card>
       <Card.Body>
@@ -13,7 +16,7 @@ export default function Cuenta({ cart, total }) {
             <Spacer y={1} />
             <Button shadow onClick={() => setSelected(false)}>Volver</Button>
             <Spacer y={2} />
-            <MercadoPagoCard total={total}/>
+            <MercadoPagoCard envio={envio} user={user} cart={cart} total={total}/>
             <Spacer y={1} />
           </>
         ) : (

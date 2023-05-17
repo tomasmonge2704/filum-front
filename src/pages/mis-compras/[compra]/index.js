@@ -1,20 +1,19 @@
 import NavbarComponent from "@/components/navbar";
 import { useContext } from "react";
 import { useRouter } from 'next/router';
-import { ProductsContext } from "@/context/productsContext";
+import { ComprasContext } from "@/context/comprasContext";
 import { Spacer } from "@nextui-org/react";
-import ProductDetail from "@/components/producto/detail";
-
+import CompraDetail from "@/components/compras/detail";
 export default function App() {
-  const { products } = useContext(ProductsContext);
+  const { compras } = useContext(ComprasContext);
   const router = useRouter();
-  const productoBuscado = products.find(producto => producto._id === router.query.producto);
+  const compraBuscada = compras.find(e => e._id === router.query.compra);
 
   return (
   <>
     <NavbarComponent/>
-    <Spacer y={3} />
-    <ProductDetail product={productoBuscado}/>
+    <Spacer y={1} />
+    {compraBuscada ? ( <CompraDetail item={compraBuscada}/>) : (<></>)}
   </>
   );
 }

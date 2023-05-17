@@ -11,6 +11,7 @@ import {
 } from "@nextui-org/react";
 import { CartContext } from "@/context/cartContext";
 import Router from "next/router";
+import { isMobile } from "react-device-detect";
 export default function ProductDetail({ product }) {
   const { addToCart } = React.useContext(CartContext);
   const [selected, setSelected] = React.useState([1]);
@@ -33,23 +34,24 @@ export default function ProductDetail({ product }) {
   return (
     <>
       {product ? (
-        <Grid.Container gap={4} justify="center">
-          <Grid xs={5}>
+        <Grid.Container gap={isMobile ? 1 : 4} justify="center">
+          {!isMobile ? (<></>) : (<Text h1>{product.nombre}</Text>)}
+          <Grid xs={isMobile ? 12 : 5}>
             <Image
               src={"https://nextui.org" + product.imageURL}
               objectFit="cover"
-              width="100%"
+              width={isMobile ? "90%" : "100%"}
               height={400}
               css={{ borderRadius: "4%" }}
               alt={product.nombre}
             />
           </Grid>
-          <Grid xs={6}>
+          <Grid xs={isMobile ? 12 : 6}>
             <Container>
-              <Text h1>{product.nombre}</Text>
+              {isMobile ? (<></>) : (<Text h1>{product.nombre}</Text>)}
               <Text size="$xl">${product.precio}</Text>
               <Text size="$xl">{product.descripcion}</Text>
-              <Spacer y={2} />
+              <Spacer y={isMobile ? 1 : 2} />
               <Dropdown>
                 <Dropdown.Button
                   light
@@ -75,7 +77,7 @@ export default function ProductDetail({ product }) {
                   <Dropdown.Item key="6">6</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              <Spacer y={2} />
+              <Spacer y={isMobile ? 1 : 2} />
               <Button onPress={handleAddToCart}>Agregar al carrito</Button>
               <Spacer y={1} />
               <Button onPress={handleAddToCartCheckout}>Comprar</Button>

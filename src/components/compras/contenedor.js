@@ -1,9 +1,7 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Pagination, Container, Spacer, Image, Text } from "@nextui-org/react";
 import CompraItem from "./item";
 import moment from "moment";
-import { useContext } from "react";
 import { ComprasContext } from "@/context/comprasContext";
 
 export default function MisComprasContenedor() {
@@ -15,9 +13,9 @@ export default function MisComprasContenedor() {
   useEffect(() => {
     const sortCompras = (compras) => {
       const compareFn = (a, b) => {
-        const fechaA = moment(a.fechaCompra, "YYYY-MM-DDTHH:mm:ss.SSSZ").format("DD/MM/YYYY");
-        const fechaB = moment(b.fechaCompra, "YYYY-MM-DDTHH:mm:ss.SSSZ").format("DD/MM/YYYY");
-        return moment(fechaB, "DD/MM/YYYY").toDate() - moment(fechaA, "DD/MM/YYYY").toDate();
+        const fechaA = moment(a.fechaCompra).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+        const fechaB = moment(b.fechaCompra).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+        return moment(fechaB).toDate() - moment(fechaA).toDate();
       };
       return [...compras].sort(compareFn);
     };
@@ -55,15 +53,15 @@ export default function MisComprasContenedor() {
   }
 
   return (
-    <Container>
+    <Container css={{padding:"0px"}}>
       <Spacer y={1} />
       {sortedCompras
         .slice((currentPage - 1) * 2, currentPage * 2)
         .map((item, index) => (
-          <React.Fragment key={index}>
+          <Container key={index} css={{padding:"0px"}}>
             <CompraItem item={item} index={index} />
             <Spacer y={1} />
-          </React.Fragment>
+          </Container>
         ))}
       <Spacer y={1} />
       <Container css={{ display: "flex", justifyContent: "center" }}>
@@ -76,4 +74,3 @@ export default function MisComprasContenedor() {
     </Container>
   );
 }
-

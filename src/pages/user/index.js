@@ -15,6 +15,7 @@ import {
 } from "@nextui-org/react";
 import { IconButton } from "@/components/icons/iconButton";
 import { EditIcon } from "@/components/icons/editIcon";
+import { isMobile } from "react-device-detect";
 const API_URL = process.env.NEXT_PUBLIC_API_KEY;
 export default function App() {
   const { user, setUser } = React.useContext(UserContext);
@@ -86,7 +87,7 @@ export default function App() {
       <NavbarComponent />
       <Spacer y={2} />
       <Container css={{ display: "flex", justifyContent: "center" }}>
-        <Grid.Container gap={2}>
+        <Grid.Container gap={isMobile ? 0 : 2}>
           <Grid xs={12}>
             <Collapse.Group splitted css={{ width: "100%" }}>
               <Collapse
@@ -124,7 +125,7 @@ export default function App() {
                 )}
                 {editableMail == true ? (
                   <Grid.Container gap={2}>
-                    <Grid xs={7}>
+                    <Grid xs={isMobile ? 12 : 7}>
                       <Input
                         label={mailError == true ? "El mail ya se encuentra registrado." : "Mail"}
                         fullWidth
@@ -133,9 +134,10 @@ export default function App() {
                         onChange={(e) => setMail(e.target.value)}
                       />
                     </Grid>
-                    <Grid xs={5}>
+                    <Grid xs={isMobile ? 12 : 5}>
                       <Container css={{display:"flex",justifyContent:"space-between",alignContent:"flex-end" }}>
                       <Button onClick={handleUpdateMail}>Guardar Cambios</Button>
+                      <Spacer y={isMobile ? 1 : 0}/>
                       <Button onClick={handleEditableMailClose}>Cancelar</Button>
                       </Container>
                     </Grid>
@@ -162,7 +164,7 @@ export default function App() {
                 <Spacer y={1} />
                 {editableTelefono == true ? (
                   <Grid.Container gap={2}>
-                    <Grid xs={7}>
+                    <Grid xs={isMobile ? 12 : 7}>
                       <Input
                         label="Telefono"
                         fullWidth
@@ -171,9 +173,10 @@ export default function App() {
                         initialValue={telefono}
                       />
                     </Grid>
-                    <Grid xs={5}>
+                    <Grid xs={isMobile ? 12 : 5}>
                       <Container css={{display:"flex",justifyContent:"space-between",alignContent:"flex-end" }}>
                       <Button onClick={handleUpdateTelefono}>Guardar Cambios</Button>
+                      <Spacer y={isMobile ? 1 : 0}/>
                       <Button onClick={handleEditableTelefonoClose}>Cancelar</Button>
                       </Container>
                     </Grid>
