@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Password } from "@/components/icons/Password";
 import { Button, Input, Spacer,Link,Row,Container } from "@nextui-org/react";
 const API_URL = process.env.NEXT_PUBLIC_API_KEY;
 
@@ -9,6 +8,24 @@ export default function LoginPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const handleUsernameChange = (event) => setUsername(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
+  const handleGoogleAuth = async () => {
+    try {
+      const response = await fetch(`${API_URL}/google`, {
+        method: "GET",
+      });
+  
+      if (response.ok) {
+        const { url } = await response.json();
+        window.location.href = url; // Redireccionar al usuario a la página de inicio de sesión de Google
+      } else {
+        const { message } = await response.json();
+        setErrorMessage(message); // Mostrar el mensaje de error en caso de que ocurra algún problema
+      }
+    } catch (error) {
+      console.error("Error al autenticar con Google:", error);
+      setErrorMessage("Error en el servidor");
+    }
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     const response = await fetch(`${API_URL}/login/api`, {
@@ -74,6 +91,7 @@ export default function LoginPage() {
             shadow
             variant="contained"
             color="error"
+            onClick={handleGoogleAuth}
             css={{ width: "100%" }}
           >
             Iniciar sesión con Google
