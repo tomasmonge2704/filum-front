@@ -4,6 +4,7 @@ import { UserProvider } from "@/context/userContext";
 import { CartProvider } from "@/context/cartContext";
 import { ProductProvider } from "@/context/productsContext";
 import { ComprasProvider } from "@/context/comprasContext";
+import { SessionProvider } from "next-auth/react";
 import { CheckAuth } from "@/components/auth";
 import '../styles/globals.css'
 
@@ -20,8 +21,9 @@ const darkTheme = createTheme({
   }
 });
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: {session,...pageProps} }) {
   return (
+    <SessionProvider session={session}>
     <UserProvider>
       <ComprasProvider>
       <CartProvider>
@@ -44,6 +46,7 @@ function MyApp({ Component, pageProps }) {
       </CartProvider>
       </ComprasProvider>
     </UserProvider>
+    </SessionProvider>
   );
 }
 

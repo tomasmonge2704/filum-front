@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { UserContext } from "@/context/userContext";
 import { CartContext } from "@/context/cartContext.js";
 import { useRouter } from "next/router";
+import { signOut } from "next-auth/react";
 import Router from "next/router";
 
 const StyledButton = styled("button", {
@@ -31,8 +32,8 @@ export default function NavbarComponent() {
   const { isDark, type } = useTheme();
   function dropdownAction(e) {
     if (e == "logout") {
+      signOut();
       localStorage.removeItem("token");
-      Router.push("/login");
     }
     if (e == "Mis compras"){
       Router.push("/mis-compras");
@@ -118,7 +119,7 @@ export default function NavbarComponent() {
                 as="button"
                 color="secondary"
                 size="md"
-                src="/avatar.png"
+                src={user.avatar ? user.avatar : "/avatar.png"}
               />
             </Dropdown.Trigger>
           </Navbar.Item>

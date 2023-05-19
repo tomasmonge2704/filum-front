@@ -1,31 +1,17 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Button, Input, Spacer,Link,Row,Container } from "@nextui-org/react";
+import { signIn } from "next-auth/react";
+import { GoogleIcon } from "@/components/icons/googleIcon";
+import { useSession } from "next-auth/react";
 const API_URL = process.env.NEXT_PUBLIC_API_KEY;
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { data: session,status } = useSession();
   const [errorMessage, setErrorMessage] = useState("");
   const handleUsernameChange = (event) => setUsername(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
-  const handleGoogleAuth = async () => {
-    try {
-      const response = await fetch(`${API_URL}/google`, {
-        method: "GET",
-      });
-  
-      if (response.ok) {
-        const { url } = await response.json();
-        window.location.href = url; // Redireccionar al usuario a la página de inicio de sesión de Google
-      } else {
-        const { message } = await response.json();
-        setErrorMessage(message); // Mostrar el mensaje de error en caso de que ocurra algún problema
-      }
-    } catch (error) {
-      console.error("Error al autenticar con Google:", error);
-      setErrorMessage("Error en el servidor");
-    }
-  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     const response = await fetch(`${API_URL}/login/api`, {
@@ -39,10 +25,33 @@ export default function LoginPage() {
       localStorage.setItem("token", token);
       window.location.href = "/";
     } else {
-      const res = await response.json()
-      setErrorMessage(res.message)
+      const res = await response.json();
+      setErrorMessage(res.message);
     }
   };
+
+  async function getToken(username, imageURL) {
+    const response = await fetch(`${API_URL}/user/verify`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, imageURL }),
+    });
+    const data = await response.json();
+    return data.token;
+  }
+
+  const googleAuth = async () => {
+    const token = await getToken(session.user.email, session.user.image);
+    console.log(token);
+    localStorage.setItem("token", token);
+    window.location.href = "/";
+  };
+
+  useEffect(() => {
+    if (status == "authenticated" && session) {
+      googleAuth();
+    }
+  }, [status]);
   return (
       <Container css={{
         display: "flex",
@@ -85,17 +94,17 @@ export default function LoginPage() {
             <hr className="line"/>
           </div>
           <Spacer y={1} />
-          <Row css={{alignItems:'center'}}>No tenes una cuenta?<Link block href="/signup">Signup</Link></Row>
-          <Spacer y={1} />
           <Button
-            shadow
+            bordered
             variant="contained"
-            color="error"
-            onClick={handleGoogleAuth}
+            icon={<GoogleIcon/>}
+            onClick={() => signIn("google")}
             css={{ width: "100%" }}
           >
             Iniciar sesión con Google
           </Button>
+          <Spacer y={1} />
+          <Row css={{alignItems:'center'}}>No tenes una cuenta?<Link block href="/signup">Signup</Link></Row>
         </form>
         </Container>
   );
