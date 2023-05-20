@@ -11,6 +11,7 @@ import { CartContext } from "@/context/cartContext.js";
 import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
 import Router from "next/router";
+import { isMobile } from "react-device-detect";
 
 const StyledButton = styled("button", {
   background: "transparent",

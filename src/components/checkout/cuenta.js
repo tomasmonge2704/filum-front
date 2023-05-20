@@ -17,6 +17,7 @@ export default function Cuenta({ cart, total,envio }) {
             <Button shadow onClick={() => setSelected(false)}>Volver</Button>
             <Spacer y={2} />
             <MercadoPagoCard envio={envio} user={user} cart={cart} total={total}/>
+            <div id="wallet_container"></div>
             <Spacer y={1} />
           </>
         ) : (

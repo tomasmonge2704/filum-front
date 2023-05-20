@@ -1,5 +1,5 @@
-import { useState,useEffect } from "react";
-import { Button, Input, Spacer,Link,Row,Container } from "@nextui-org/react";
+import { useState, useEffect } from "react";
+import { Button, Input, Spacer, Link, Row, Container } from "@nextui-org/react";
 import { signIn } from "next-auth/react";
 import { GoogleIcon } from "@/components/icons/googleIcon";
 import { useSession } from "next-auth/react";
@@ -8,43 +8,58 @@ const API_URL = process.env.NEXT_PUBLIC_API_KEY;
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { data: session,status } = useSession();
+  const { data: session, status } = useSession();
   const [errorMessage, setErrorMessage] = useState("");
   const handleUsernameChange = (event) => setUsername(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch(`${API_URL}/login/api`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
+    try {
+      const response = await fetch(`${API_URL}/login/api`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
 
-    if (response.ok) {
-      const { token } = await response.json();
-      localStorage.setItem("token", token);
-      window.location.href = "/";
-    } else {
-      const res = await response.json();
-      setErrorMessage(res.message);
+      if (response.ok) {
+        const { token } = await response.json();
+        localStorage.setItem("token", token);
+        window.location.href = "/";
+      } else {
+        const res = await response.json();
+        setErrorMessage(res.message);
+      }
+    } catch (error) {
+      console.log(error);
+      setErrorMessage("Error al iniciar sesión");
     }
   };
 
   async function getToken(username, imageURL) {
-    const response = await fetch(`${API_URL}/user/verify`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, imageURL }),
-    });
-    const data = await response.json();
-    return data.token;
+    try {
+      const response = await fetch(`${API_URL}/user/verify`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, imageURL }),
+      });
+      const data = await response.json();
+      return data.token;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Error al obtener el token");
+    }
   }
 
   const googleAuth = async () => {
-    const token = await getToken(session.user.email, session.user.image);
-    console.log(token);
-    localStorage.setItem("token", token);
-    window.location.href = "/";
+    try {
+      const token = await getToken(session.user.email, session.user.image);
+      console.log(token);
+      localStorage.setItem("token", token);
+      window.location.href = "/";
+    } catch (error) {
+      console.log(error);
+      setErrorMessage("Error al iniciar sesión con Google");
+    }
   };
 
   useEffect(() => {
@@ -52,6 +67,7 @@ export default function LoginPage() {
       googleAuth();
     }
   }, [status]);
+
   return (
       <Container css={{
         display: "flex",
