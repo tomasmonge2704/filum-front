@@ -1,13 +1,11 @@
 import { Card } from "@nextui-org/react";
 import Router from "next/router";
-import { useState } from "react";
-import { initMercadoPago,Wallet } from '@mercadopago/sdk-react';
-
+import { useEffect, useState } from "react";
+import Script from "next/script";
 const API_URL = process.env.NEXT_PUBLIC_API_KEY;
 
 export default function MercadoPagoCard({ envio, user, cart, total }) {
   const [preferenceId, setPreferenceId] = useState('');
-  initMercadoPago(process.env.NEXT_PUBLIC_PUBLIC_KEY);
   const body = JSON.stringify({
     status: "Nuevo",
     datosComprador: {
@@ -24,7 +22,17 @@ export default function MercadoPagoCard({ envio, user, cart, total }) {
     productos: cart,
     total,
   });
-
+  useEffect(() => {
+    const mp = new MercadoPago(process.env.NEXT_PUBLIC_PUBLIC_KEY);
+    const bricksBuilder = mp.bricks();
+    if (preferenceId) {
+      bricksBuilder.create("wallet", "wallet_container", {
+        initialization: {
+          preferenceId: preferenceId,
+        },
+      });
+    }
+  }, [preferenceId]);
   const handleMercadoPago = async () => {
     try {
       const response = await fetch(`${API_URL}/api/mercadopago/create-preference`, {
@@ -60,8 +68,9 @@ export default function MercadoPagoCard({ envio, user, cart, total }) {
     }
   }
   return (<>
+  <Script src="https://sdk.mercadopago.com/js/v2"></Script>
     {preferenceId ? (
-      <Wallet initialization={{ preferenceId: preferenceId }} />
+      <div id="wallet_container"></div>
     ) : (
     <Card
       isHoverable
