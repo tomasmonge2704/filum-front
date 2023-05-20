@@ -1,4 +1,4 @@
-import { Card } from "@nextui-org/react";
+import { Card} from "@nextui-org/react";
 import Router from "next/router";
 import { useEffect, useState } from "react";
 import Script from "next/script";
@@ -23,13 +23,13 @@ export default function MercadoPagoCard({ envio, user, cart, total }) {
     total,
   });
   useEffect(() => {
-    const mp = new MercadoPago(process.env.NEXT_PUBLIC_PUBLIC_KEY);
-    const bricksBuilder = mp.bricks();
-    if (preferenceId) {
+    if (preferenceId && MercadoPago) {
+      const mp = new MercadoPago(process.env.NEXT_PUBLIC_PUBLIC_KEY);
+      const bricksBuilder = mp.bricks();
       bricksBuilder.create("wallet", "wallet_container", {
         initialization: {
           preferenceId: preferenceId,
-        },
+        }
       });
     }
   }, [preferenceId]);
@@ -84,7 +84,7 @@ export default function MercadoPagoCard({ envio, user, cart, total }) {
           src="/mercado-pago.png"
           width="100%"
           height="100%"
-          objectFit="contains"
+          objectFit="innitial"
           alt="Card example background"
         />
         
