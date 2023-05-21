@@ -1,8 +1,8 @@
 const API_URL = process.env.NEXT_PUBLIC_API_KEY;
-import { UseCompraContext } from "@/utils/compraContextUtil";
+
 export default function handler(req, res) {
-    const {compra,setCompra} = UseCompraContext();
     console.log(req)
+    console.log('api url' + API_URL)
     const postCompra = async () => {
         try {
           const body = await compra;
@@ -18,9 +18,5 @@ export default function handler(req, res) {
           alert(error);
         }
       };
-    
-      if (compra.length !== 0) {
-        postCompra();
-      }
     res.status(200).json({ name: 'tomas Doe' })
   }
