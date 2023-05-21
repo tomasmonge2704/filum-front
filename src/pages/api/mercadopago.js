@@ -1,5 +1,6 @@
 const API_URL = process.env.NEXT_PUBLIC_API_KEY;
 const mpaccesstoken = process.env.mpaccesstoken;
+import { data } from "autoprefixer";
 import axios from "axios";
 
 export default async function handler(req, res) {
@@ -28,7 +29,8 @@ export default async function handler(req, res) {
           nombreCuenta: "filumSA",
         },
         productos: compra.data.metadata.productos,
-        total:compra.data.metadata.total
+        total:compra.data.metadata.total,
+        pagoId:compra.data.id
       }
       data.productos = data.productos.map((producto) => {
         const { image_url, ...resto } = producto;
@@ -43,7 +45,7 @@ export default async function handler(req, res) {
         },
         body:body,
       });
-      console.log(response);
+      console.log(compra.data);
     } catch (error) {
       console.log(error);
     }
