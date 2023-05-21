@@ -19,7 +19,7 @@ export default async function handler(req, res) {
       const response = await axios.post(`${API_URL}/api/compras`, {
         headers: {
           "Content-Type": "application/json",
-          Authentication: compra.data.metadata.token,
+          Authorization:`${compra.data.metadata.token}`,
         },
         body
       });
