@@ -13,17 +13,17 @@ export default async function handler(req, res) {
         },
       }
     );
-
+    console.log(compra.data.metadata);
     try {
       const body = compra.data.metadata;
-      const response = await axios.post(`${API_URL}/api/compras`, {
+      const response = await fetch(`${API_URL}/api/compras`, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization:`${compra.data.metadata.token}`,
+          Authentication: `${compra.data.metadata.token}`,
         },
-        body
+        body:body,
       });
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
