@@ -1,8 +1,20 @@
 const API_URL = process.env.NEXT_PUBLIC_API_KEY;
+const mpaccesstoken = process.env.mpaccesstoken;
+import axios from "axios";
 
 export default function handler(req, res) {
-    console.log(req)
-    console.log('api url' + API_URL)
+    if(req.body.id){
+    const compra = await axios.get(
+        `https://api.mercadopago.com/v1/payments/${req.body.id}`,
+        {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${mpaccesstoken}`,
+          },
+        }
+      );
+      console.log(compra)
+    }
     const postCompra = async () => {
         try {
           const body = await compra;
