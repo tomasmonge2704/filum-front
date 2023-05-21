@@ -13,17 +13,17 @@ export default async function handler(req, res) {
         },
       }
     );
-    console.log(compra.data.metadata);
     try {
       const body = compra.data.metadata;
       const response = await fetch(`${API_URL}/api/compras`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authentication: `${compra.data.metadata.token}`,
+          Authentication: compra.data.metadata.token,
         },
         body:body,
       });
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
