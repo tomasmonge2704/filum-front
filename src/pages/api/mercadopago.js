@@ -14,7 +14,27 @@ export default async function handler(req, res) {
       }
     );
     try {
-      const body = JSON.stringify(compra.data.metadata);
+      const data = {
+        status: "Pagado",
+        datosComprador: {
+          username: compra.data.metadata.datos_comprador.username,
+          metodoPago: "Credito",
+          numeroCuenta: "1010049219412",
+          envio,
+          adress: compra.data.metadata.datos_comprador.adress,
+        },
+        datosVendedor: {
+          numeroCuenta: "1412412515212543",
+          nombreCuenta: "filumSA",
+        },
+        productos: compra.data.metadata.productos,
+        total:compra.data.metadata.total
+      }
+      data.productos = data.productos.map((producto) => {
+        const { image_url, ...resto } = producto;
+        return { imageURL: image_url, ...resto };
+      });
+      const body = JSON.stringify(data);
       const response = await fetch(`${API_URL}/api/compras`, {
         method: "POST",
         headers: {
@@ -23,7 +43,7 @@ export default async function handler(req, res) {
         },
         body:body,
       });
-      console.log(`${compra.data.metadata.token}`);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
