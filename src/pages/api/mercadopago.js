@@ -3,10 +3,9 @@ const mpaccesstoken = process.env.mpaccesstoken;
 import axios from "axios";
 
 export default async function handler(req, res) {
-    console.log(req.body)
-    if(req.body.id){
+    if(req.body.data && req.body.type == 'payment'){
     const compra = await axios.get(
-        `https://api.mercadopago.com/v1/payments/${req.body.id}`,
+        `https://api.mercadopago.com/v1/payments/${req.body.data.id}`,
         {
           headers: {
             "Content-type": "application/json",
@@ -14,22 +13,24 @@ export default async function handler(req, res) {
           },
         }
       );
-      console.log(compra)
-    }
-    const postCompra = async () => {
+      console.log(compra.metadata)
+      async () => {
         try {
-          const body = await compra;
-          await fetch(`${API_URL}/api/compras`, {
+          const body = compra.metada;
+          const response = await fetch(`${API_URL}/api/compras`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authentication: `${localStorage.getItem("token")}`,
+              Authentication: `${compra.token}`,
             },
             body,
           });
+          console.log(response)
         } catch (error) {
-          alert(error);
+          console.log(error);
         }
       };
+    }
+   
     res.status(200).json({ name: 'tomas Doe' })
   }

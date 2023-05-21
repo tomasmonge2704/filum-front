@@ -24,12 +24,14 @@ export default function MercadoPagoCard({ compra }) {
     }
   }, [preferenceId]);
   const handleMercadoPago = async () => {
+    const token  = localStorage.getItem("token");
+    body.token = token;
     try {
       const response = await fetch(`${API_URL}/api/mercadopago/create-preference`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authentication: `${localStorage.getItem("token")}`,
+          Authentication: `${token}`,
         },
         body:body,
       });
