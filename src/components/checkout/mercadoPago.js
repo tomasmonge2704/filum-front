@@ -29,6 +29,9 @@ export default function MercadoPagoCard({ envio, user, cart, total }) {
       bricksBuilder.create("wallet", "wallet_container", {
         initialization: {
           preferenceId: preferenceId,
+        },
+        text: {
+          cardTitle: "Pagar con Mercado Pago",
         }
       });
     }
