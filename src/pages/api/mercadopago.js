@@ -20,7 +20,7 @@ export default async function handler(req, res) {
           username: compra.data.metadata.datos_comprador.username,
           metodoPago: "Credito",
           numeroCuenta: "1010049219412",
-          envio,
+          envio:compra.data.metadata.datos_comprador.envio,
           adress: compra.data.metadata.datos_comprador.adress,
         },
         datosVendedor: {
