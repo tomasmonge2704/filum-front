@@ -2,7 +2,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_KEY;
 const mpaccesstoken = process.env.mpaccesstoken;
 import axios from "axios";
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
     if(req.body.id){
     const compra = await axios.get(
         `https://api.mercadopago.com/v1/payments/${req.body.id}`,
