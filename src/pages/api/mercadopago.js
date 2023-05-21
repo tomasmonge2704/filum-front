@@ -1,9 +1,8 @@
 import Router from "next/router";
 const API_URL = process.env.NEXT_PUBLIC_API_KEY;
-import { useContext } from "react";
-import { CompraContext } from "@/context/compraContext";
+import { UseCompraContext } from "@/utils/compraContextUtil";
 export default function handler(req, res) {
-    const {compra,setCompra} = useContext(CompraContext);
+    const {compra,setCompra} = UseCompraContext();
     console.log(compra)
     async function postCompra() {
         try {
