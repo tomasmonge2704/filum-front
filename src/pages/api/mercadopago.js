@@ -13,15 +13,15 @@ export default async function handler(req, res) {
           },
         }
       );
-      console.log(compra.metadata)
+      console.log(compra)
       async () => {
         try {
-          const body = compra.metada;
+          const body = compra.data.metada;
           const response = await fetch(`${API_URL}/api/compras`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authentication: `${compra.token}`,
+              Authentication: `${compra.data.metadata.token}`,
             },
             body,
           });

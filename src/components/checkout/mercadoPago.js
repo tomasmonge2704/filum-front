@@ -6,7 +6,9 @@ const API_URL = process.env.NEXT_PUBLIC_API_KEY;
 export default function MercadoPagoCard({ compra }) {
   const [preferenceId, setPreferenceId] = useState('');
   const [body,setBody] = useState({})
+  const token  = localStorage.getItem("token");
   useEffect(() => {
+    compra.token = token;
     setBody(JSON.stringify(compra));
   }, [compra]);
   useEffect(() => {
@@ -24,8 +26,6 @@ export default function MercadoPagoCard({ compra }) {
     }
   }, [preferenceId]);
   const handleMercadoPago = async () => {
-    const token  = localStorage.getItem("token");
-    body.token = token;
     try {
       const response = await fetch(`${API_URL}/api/mercadopago/create-preference`, {
         method: "POST",
