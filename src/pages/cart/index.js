@@ -1,4 +1,3 @@
-import NavbarComponent from "@/components/navbar";
 import { useContext } from "react";
 import { CartContext } from "@/context/cartContext";
 import {
@@ -7,13 +6,13 @@ import {
 } from "@nextui-org/react";
 import Cart from "@/components/carrito/cart";
 import EmptyCart from "@/components/carrito/emptyCart";
+import { isMobile } from "react-device-detect";
 export default function App() {
   const { cart,total, changeCantidad, removeFromCart, clearCart } =
     useContext(CartContext);
   return (
     <>
-      <NavbarComponent/>
-      <Spacer y={3} />
+      <Spacer y={isMobile ? 1 : 3} />
       <Container gap={0}>
         {cart.length == 0 ? (
           <EmptyCart/>

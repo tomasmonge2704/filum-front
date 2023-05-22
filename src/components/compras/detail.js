@@ -7,7 +7,7 @@ import {
   Card,
   Row,
   Link,
-  Collapse
+  Collapse,
 } from "@nextui-org/react";
 import moment from "moment-timezone";
 import CartItemView from "../carrito/cartItemView";
@@ -64,43 +64,45 @@ export default function CompraDetail({ item }) {
         </Grid>
         <Spacer y={1} />
         <Grid xs={isMobile ? 12 : 4}>
-            
           <Container>
-          <Spacer y={isMobile ? 0 : 2.5}/>
+            <Spacer y={isMobile ? 0 : 2.5} />
             <Card>
-              <Card.Header> <Text b>Detalle de la compra</Text></Card.Header>
+              <Card.Header>
+                {" "}
+                <Text b>Detalle de la compra</Text>
+              </Card.Header>
               <Card.Divider />
               <Card.Body>
-              <Container
+                <Container
                   css={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <Text size="$xl">Total</Text>
                   <Text size="$xl">${item.total}</Text>
                 </Container>
-                <Container
-                  css={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <Text size="$xl">Envio</Text>
-                  <Text size="$xl">${item.envio}</Text>
-                </Container>
-                <Spacer y={1}/>
+                <Spacer y={1} />
                 <Collapse.Group>
-      <Collapse subtitle="Detalle del pago y envio">
-      <Container
-                  css={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <Text size="$xl">Tipo de envio</Text>
-                  <Text size="$xl">{item.datosComprador.envio}</Text>
-    </Container>
-      </Collapse>
-      
-    </Collapse.Group>
+                  <Collapse subtitle="Detalle del pago y envio">
+                    <Container
+                      css={{ display: "flex", justifyContent: "space-between" }}
+                    >
+                      <Text size="$xl">Tipo de envio</Text>
+                      <Text size="$xl">{item.datosComprador.envio}</Text>
+                    </Container>
+                    <Spacer y={1} />
+                    <Container
+                      css={{ display: "flex", justifyContent: "space-between" }}
+                    >
+                      <Text size="$xl">Metodo de pago</Text>
+                      <Text size="$xl">{item.datosComprador.metodoPago}</Text>
+                    </Container>
+                  </Collapse>
+                </Collapse.Group>
               </Card.Body>
             </Card>
           </Container>
         </Grid>
       </Grid.Container>
-      <Spacer y={isMobile ? 3 : 0}/>
+      <Spacer y={isMobile ? 3 : 0} />
     </Container>
   );
 }

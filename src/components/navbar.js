@@ -1,11 +1,11 @@
 import { Navbar, Badge, Link, Text, Avatar, Dropdown } from "@nextui-org/react";
 import { Logo } from "./Logo.js";
 import { useTheme as useNextTheme } from "next-themes";
-import { Switch, useTheme,styled } from "@nextui-org/react";
+import { Switch, useTheme, styled } from "@nextui-org/react";
 import { MoonIcon } from "@/components/icons/MoonIcon.js";
 import { SunIcon } from "@/components/icons/SunIcon.js";
 import { CartIcon } from "./icons/CartIcon.js";
-import { useContext } from "react";
+import { useContext,useEffect,useState } from "react";
 import { UserContext } from "@/context/userContext";
 import { CartContext } from "@/context/cartContext.js";
 import { useRouter } from "next/router";
@@ -17,17 +17,17 @@ const StyledButton = styled("button", {
   background: "transparent",
   border: "none",
   cursor: "pointer",
-  '&:active': {
+  "&:active": {
     opacity: 0.8,
-  }
+  },
 });
 
 export default function NavbarComponent() {
   const router = useRouter();
-  const page = router.pathname
+  const page = router.pathname;
   const navbarLinks = [
     { nombre: "Home", href: "/" },
-    { nombre: "Productos", href: "/productos" }
+    { nombre: "Productos", href: "/productos" },
   ];
   const { setTheme } = useNextTheme();
   const { isDark, type } = useTheme();
@@ -36,16 +36,20 @@ export default function NavbarComponent() {
       signOut();
       localStorage.removeItem("token");
     }
-    if (e == "Mis compras"){
+    if (e == "Mis compras") {
       Router.push("/mis-compras");
     }
-    if (e == "profile"){
+    if (e == "profile") {
       Router.push("/user");
     }
-    
   }
   const { user, setUser } = useContext(UserContext);
   const { cart } = useContext(CartContext);
+  const [shouldRenderSwitch, setShouldRenderSwitch] = useState(false);
+
+  useEffect(() => {
+    setShouldRenderSwitch(!isMobile);
+  }, []);
   return (
     <Navbar isBordered variant="sticky">
       <Navbar.Toggle showIn="xs" />
@@ -56,15 +60,19 @@ export default function NavbarComponent() {
           },
         }}
       >
-        <StyledButton css={{display:"flex",alignItems:"center"}} onClick={(e) => {
-              e.preventDefault();
-              Router.push('/');
-            }}>
-        <Logo />
-        <Text b color="inherit" hideIn="xs">
-          ACME
-        </Text>
-        </StyledButton>
+        {shouldRenderSwitch && (
+        <StyledButton
+          css={{ display: "flex", alignItems: "center" }}
+          onClick={(e) => {
+            e.preventDefault();
+            Router.push("/");
+          }}
+        >
+          <Logo />
+          <Text b color="inherit" hideIn="xs">
+            ACME
+          </Text>
+        </StyledButton>)}
       </Navbar.Brand>
       <Navbar.Content
         enableCursorHighlight
@@ -72,14 +80,14 @@ export default function NavbarComponent() {
         hideIn="xs"
         variant="highlight-rounded"
       >
-        {navbarLinks.map((item, index) => (
+        {navbarLinks.map((item) => (
           <Navbar.Link
             href={item.href}
             onClick={(e) => {
               e.preventDefault();
               Router.push(item.href);
             }}
-            key={index}
+            key={item.href}
             isActive={page == item.href ? true : false}
           >
             {item.nombre}
@@ -95,6 +103,7 @@ export default function NavbarComponent() {
           },
         }}
       >
+        {shouldRenderSwitch && (
         <Switch
           checked={isDark}
           iconOff={<SunIcon filled />}
@@ -102,15 +111,18 @@ export default function NavbarComponent() {
           size="xl"
           color="error"
           onChange={(e) => setTheme(e.target.checked ? "dark" : "light")}
-          id="navbarSwich"
+          id="navbarSwitch"
         />
-         <StyledButton onClick={(e) => {
-              e.preventDefault();
-              Router.push('/cart');
-            }}>
-        <Badge color="error" content={cart.length} shape="circle">
-              <CartIcon fill="currentColor" size={30} />
-        </Badge>
+      )}
+        <StyledButton
+          onClick={(e) => {
+            e.preventDefault();
+            Router.push("/cart");
+          }}
+        >
+          <Badge color="error" content={cart.length} shape="circle">
+            <CartIcon fill="currentColor" size={30} />
+          </Badge>
         </StyledButton>
         <Dropdown placement="bottom-right">
           <Navbar.Item>
@@ -133,7 +145,7 @@ export default function NavbarComponent() {
               <Text b color="inherit" css={{ d: "flex" }}>
                 Signed in as
               </Text>
-              <Text b color="inherit" css={{ d: "flex" }}>
+              <Text size="$xs" b color="inherit" css={{ d: "flex" }}>
                 {user.username}
               </Text>
             </Dropdown.Item>
@@ -147,9 +159,9 @@ export default function NavbarComponent() {
         </Dropdown>
       </Navbar.Content>
       <Navbar.Collapse>
-        {navbarLinks.map((item, index) => (
+        {navbarLinks.map((item) => (
           <Navbar.CollapseItem
-            key={index}
+            key={item.href}
             activeColor="secondary"
             isActive={page == item.href ? true : false}
           >

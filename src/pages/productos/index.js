@@ -1,4 +1,3 @@
-import NavbarComponent from "@/components/navbar";
 import { ProductsContext } from "@/context/productsContext";
 import { Grid,Spacer, Container } from "@nextui-org/react";
 import { useContext } from 'react';
@@ -7,7 +6,6 @@ export default function App() {
   const { products, setProducts } = useContext(ProductsContext);
   return (
     <>
-      <NavbarComponent/>
       <Spacer y={3} />
       <Container>
       <Grid.Container gap={2} justify="flex-start">

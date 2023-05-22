@@ -1,4 +1,3 @@
-import NavbarComponent from "@/components/navbar";
 import { useContext } from "react";
 import { useRouter } from 'next/router';
 import { ComprasContext } from "@/context/comprasContext";
@@ -11,7 +10,6 @@ export default function App() {
 
   return (
   <>
-    <NavbarComponent/>
     <Spacer y={1} />
     {compraBuscada ? ( <CompraDetail item={compraBuscada}/>) : (<></>)}
   </>

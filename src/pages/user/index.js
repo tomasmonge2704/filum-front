@@ -1,4 +1,3 @@
-import NavbarComponent from "@/components/navbar";
 import { UserContext } from "@/context/userContext";
 import React from "react";
 import MisComprasContenedor from "@/components/compras/contenedor";
@@ -84,7 +83,6 @@ export default function App() {
   };
   return (
     <>
-      <NavbarComponent />
       <Spacer y={2} />
       <Container css={{ display: "flex", justifyContent: "center" }}>
         <Grid.Container gap={isMobile ? 0 : 2}>

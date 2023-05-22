@@ -1,6 +1,5 @@
 const API_URL = process.env.NEXT_PUBLIC_API_KEY;
 const mpaccesstoken = process.env.mpaccesstoken;
-import { data } from "autoprefixer";
 import axios from "axios";
 
 export default async function handler(req, res) {
@@ -19,8 +18,7 @@ export default async function handler(req, res) {
         status: "Pagado",
         datosComprador: {
           username: compra.data.metadata.datos_comprador.username,
-          metodoPago: "Credito",
-          numeroCuenta: "1010049219412",
+          metodoPago: compra.data.payment_type_id,
           envio:compra.data.metadata.datos_comprador.envio,
           adress: compra.data.metadata.datos_comprador.adress,
         },

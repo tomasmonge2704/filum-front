@@ -13,12 +13,12 @@ import { isMobile } from "react-device-detect";
 export default function CheckoutContenedor({ cart, total }) {
   const [selected, setSelected] = useState("a domicilio");
   return (
-    <Container>
+    <Container >
       <Spacer y={isMobile ? 1 : 3} />
       <Grid.Container>
         <Grid xs={isMobile ? 0 : 1} />
         <Grid xs={isMobile ? 12 : 6}>
-          <Container>
+          <Container css={isMobile && {padding:"0px"}}>
             <Text h3>¿Cómo querés recibir o retirar tu compra?</Text>
             <Spacer y={1} />
             <Container>

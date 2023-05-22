@@ -1,7 +1,7 @@
 import React from "react";
-import { styled, Image, Grid, Dropdown,Card } from "@nextui-org/react";
+import { styled, Image, Grid, Input,Card,Text, Container, Spacer } from "@nextui-org/react";
 import { DeleteIcon } from "../icons/DeleteIcon";
-
+import { isMobile } from "react-device-detect";
 const StyledButton = styled("button", {
     background: "transparent",
     border: "none",
@@ -12,25 +12,22 @@ const StyledButton = styled("button", {
   });
 
 export default function CartItem({changeCantidad, item,removeFromCart }) {
-    const [selected, setSelected] = React.useState(new Set([item.cantidad]));
-    const selectedValue = React.useMemo(
-      () =>Array.from(selected).join(", ").replaceAll("_", " "),
-      [selected]
-    );  
-    React.useMemo(
-        () =>{
-            item.cantidad = selectedValue;
-            changeCantidad(item);
-        },
-        [selectedValue]
-      );  
+  const [cantidad, setCantidad] = React.useState(item.cantidad);
+  React.useMemo(() => {
+    if(cantidad <= item.stock){
+      item.cantidad = Number(cantidad);
+    }else{
+      setCantidad(item.stock);
+    }
+    changeCantidad(item);
+  }, [cantidad]);
     const handleDeleteItem = () =>{
         removeFromCart(item)
     }
   return (
     <Card><Card.Body>
-    <Grid.Container gap={1} justify="center" css={{borderTop:'5px Black'}}>
-      <Grid xs={2}>
+    <Grid.Container gap={isMobile ? 0 : 1} justify="center">
+      <Grid xs={isMobile ? 4 : 2}>
         <Image
           src={"https://nextui.org" + item.imageURL}
           objectFit="cover"
@@ -40,35 +37,17 @@ export default function CartItem({changeCantidad, item,removeFromCart }) {
           alt={item.nombre}
         />
       </Grid>
-      <Grid xs={3} css={{textAlign:"start"}}>
-        {item.nombre}
-        <br/>
-        ${item.precio}        
+      <Grid xs={6} css={{textAlign:"strat"}}>
+        <Container>
+        <Text>
+        {item.nombre}  
+        </Text>    
+        <Text>${item.precio}</Text>
+        <Spacer y={1}/>
+      <Input labelLeft="Cantidad"  width="160px" type="Number" value={cantidad} onChange={(e) => setCantidad(e.target.value)}/>
+      </Container>
       </Grid>
-      <Grid xs={3}>
-      <Dropdown>
-      <Dropdown.Button light color="default" css={{ tt: "capitalize" }}>
-        Cantidad: {selectedValue}
-      </Dropdown.Button>
-      <Dropdown.Menu
-        aria-label="Single selection actions"
-        color="default"
-        variant="light"
-        disallowEmptySelection
-        selectionMode="single"
-        selectedKeys={selected}
-        onSelectionChange={setSelected}
-      >
-        <Dropdown.Item key="1">1</Dropdown.Item>
-        <Dropdown.Item key="2">2</Dropdown.Item>
-        <Dropdown.Item key="3">3</Dropdown.Item>
-        <Dropdown.Item key="4">4</Dropdown.Item>
-        <Dropdown.Item key="5">5</Dropdown.Item>
-        <Dropdown.Item key="6">6</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
-      </Grid>
-      <Grid xs={3} css={{display:"flex",justifyContent:"flex-end",alignItems:"baseline"}}>
+      <Grid xs={isMobile ? 2 : 3} css={{display:"flex",justifyContent:"flex-end",alignItems:"baseline"}}>
       <StyledButton onClick={handleDeleteItem}>
         <DeleteIcon size={20} fill="#FF0080"/>
       </StyledButton>

@@ -27,13 +27,13 @@ export default function EmptyCart() {
           <Spacer y={2} />
           <Row justify="center" align="center">
             <Button
-              bordered color="gradient"
+              shadow
               onPress={() => {
                 Router.push("/productos");
               }}
               auto
             >
-              Seguir comprando
+              Ver productos
             </Button>
           </Row>
           <Spacer y={2} />

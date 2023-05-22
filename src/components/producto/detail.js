@@ -3,10 +3,10 @@ import {
   Text,
   Button,
   Container,
+  Input,
   Grid,
   Image,
   Loading,
-  Dropdown,
   Spacer,
 } from "@nextui-org/react";
 import { CartContext } from "@/context/cartContext";
@@ -14,14 +14,14 @@ import Router from "next/router";
 import { isMobile } from "react-device-detect";
 export default function ProductDetail({ product }) {
   const { addToCart } = React.useContext(CartContext);
-  const [selected, setSelected] = React.useState([1]);
-  const selectedValue = React.useMemo(
-    () => Array.from(selected).join(", ").replaceAll("_", " "),
-    [selected]
-  );
+  const [cantidad, setCantidad] = React.useState([1]);
   React.useMemo(() => {
-    if (product) product.cantidad = Number(selectedValue);
-  }, [selectedValue]);
+    if (product && product.cantidad <= product.stock){
+      product.cantidad = Number(cantidad);
+    } else{
+      setCantidad(product.stock)
+    }
+  }, [cantidad]);
 
   const handleAddToCart = () => {
     addToCart(product);
@@ -47,36 +47,13 @@ export default function ProductDetail({ product }) {
             />
           </Grid>
           <Grid xs={isMobile ? 12 : 6}>
-            <Container>
+            <Container css={isMobile && {display:"grid"}}>
               {isMobile ? (<></>) : (<Text h1>{product.nombre}</Text>)}
               <Text size="$xl">${product.precio}</Text>
               <Text size="$xl">{product.descripcion}</Text>
-              <Spacer y={isMobile ? 1 : 2} />
-              <Dropdown>
-                <Dropdown.Button
-                  light
-                  color="default"
-                  css={{ tt: "capitalize" }}
-                >
-                  Cantidad: {selectedValue}
-                </Dropdown.Button>
-                <Dropdown.Menu
-                  aria-label="Single selection actions"
-                  color="default"
-                  variant="light"
-                  disallowEmptySelection
-                  selectionMode="single"
-                  selectedKeys={selected}
-                  onSelectionChange={setSelected}
-                >
-                  <Dropdown.Item key="1">1</Dropdown.Item>
-                  <Dropdown.Item key="2">2</Dropdown.Item>
-                  <Dropdown.Item key="3">3</Dropdown.Item>
-                  <Dropdown.Item key="4">4</Dropdown.Item>
-                  <Dropdown.Item key="5">5</Dropdown.Item>
-                  <Dropdown.Item key="6">6</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+              <Text size="$xl">Stock disponible: {product.stock}</Text>
+              {!isMobile && <Spacer y={1} />}
+              <Input labelLeft="Cantidad"  width="160px" type="Number" value={cantidad} onChange={(e) => setCantidad(e.target.value)}/>
               <Spacer y={isMobile ? 1 : 2} />
               <Button onPress={handleAddToCart}>Agregar al carrito</Button>
               <Spacer y={1} />

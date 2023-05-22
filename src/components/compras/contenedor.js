@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Pagination, Container, Spacer, Image, Text } from "@nextui-org/react";
 import CompraItem from "./item";
+import EmptyCart from "../carrito/emptyCart";
 import moment from "moment";
 import { ComprasContext } from "@/context/comprasContext";
 
@@ -29,26 +30,7 @@ export default function MisComprasContenedor() {
 
   if (!comprasLoaded) {
     return (
-      <Container css={{ display: "flex", justifyContent: "center" }}>
-        <Text
-          h1
-          size={60}
-          css={{
-            textGradient: "45deg, $blue600 -20%, $pink600 50%",
-          }}
-          weight="bold"
-        >
-          No tienes compras actualmente
-        </Text>
-        <Image
-          src="/emptyCart.png"
-          objectFit="contain"
-          width="100%"
-          height={400}
-          css={{ borderRadius: "4%" }}
-          alt="carritoVacio"
-        />
-      </Container>
+      <EmptyCart/>
     );
   }
 

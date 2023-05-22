@@ -8,7 +8,7 @@ import {
   } from "@nextui-org/react";
   import { UserContext } from "@/context/userContext";
   import { useContext, useState, useEffect } from "react";
-  
+  import { isMobile } from "react-device-detect";
   const API_URL = process.env.NEXT_PUBLIC_API_KEY;
   
   export default function Domicilio({ tipoEnvio }) {
@@ -55,7 +55,7 @@ import {
       };      
   
     return (
-      <Container>
+      <Container css={{padding:"0px"}}>
         <Text size={20}>Domicilio</Text>
         <Spacer y={1} />
         <Card>
@@ -70,7 +70,12 @@ import {
                 />
                 <Spacer y={1} />
                 <Container
-                  css={{
+                  css={isMobile ? {
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent:"space-around",
+                    padding: "0px"                  
+                  } : {
                     display: "flex",
                     flexWrap: "nowrap",
                     justifyContent: "space-evenly",
@@ -82,16 +87,18 @@ import {
                     label="Altura"
                     readOnly={!editable}
                     value={altura}
+                    width="48%"
                     onChange={(e) => setAltura(e.target.value)}
                   />
-                  <Spacer x={1} />
+                  {!isMobile && (<Spacer x={1} />)}
                   <Input
                     label="Piso"
+                    width="48%"
                     readOnly={!editable}
                     value={piso}
                     onChange={(e) => setPiso(e.target.value)}
                   />
-                  <Spacer x={1} />
+                  <Spacer x={isMobile ? 12 : 1}/>
                   {editable ? (
                     <Button shadow onClick={handleDomicilio}>
                       Guardar domicilio

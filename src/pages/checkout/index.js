@@ -1,4 +1,3 @@
-import NavbarComponent from "@/components/navbar";
 import CheckoutContenedor from "@/components/checkout/contenedor";
 import { CartContext } from "@/context/cartContext";
 import { useContext } from "react";
@@ -7,7 +6,6 @@ export default function App() {
   const { cart,total } = useContext(CartContext);
   return (
     <>
-      <NavbarComponent/>
       {cart.length == 0 ? (<EmptyCart/>):(<CheckoutContenedor total={total} cart={cart}/>)}
     </>
   );

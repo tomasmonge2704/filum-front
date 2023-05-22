@@ -7,6 +7,7 @@ import { ComprasProvider } from "@/context/comprasContext";
 import { CompraProvider } from "@/context/compraContext";
 import { SessionProvider } from "next-auth/react";
 import { CheckAuth } from "@/components/auth";
+import NavbarComponent from "@/components/navbar";
 import "../styles/globals.css";
 
 const lightTheme = createTheme({
@@ -40,6 +41,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                 >
                   <NextUIProvider>
                     <CheckAuth>
+                      <NavbarComponent/>
                       <Component {...pageProps} />
                     </CheckAuth>
                   </NextUIProvider>

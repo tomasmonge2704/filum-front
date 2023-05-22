@@ -59,7 +59,7 @@ export default function MercadoPagoCard({ compra }) {
           src="/mercado-pago.png"
           width="100%"
           height="100%"
-          objectFit="innitial"
+          objectFit="cover"
           alt="Card example background"
         />
         
