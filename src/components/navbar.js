@@ -1,5 +1,4 @@
-import { Navbar, Badge, Link, Text, Avatar, Dropdown } from "@nextui-org/react";
-import { Logo } from "./Logo.js";
+import { Navbar, Badge, Link, Text, Avatar, Dropdown,Image } from "@nextui-org/react";
 import { useTheme as useNextTheme } from "next-themes";
 import { Switch, useTheme, styled } from "@nextui-org/react";
 import { MoonIcon } from "@/components/icons/MoonIcon.js";
@@ -68,9 +67,9 @@ export default function NavbarComponent() {
             Router.push("/");
           }}
         >
-          <Logo />
+          <Image src="/logo.png" height={50} />
           <Text b color="inherit" hideIn="xs">
-            ACME
+            Filum
           </Text>
         </StyledButton>)}
       </Navbar.Brand>

@@ -7,11 +7,16 @@ import { ComprasProvider } from "@/context/comprasContext";
 import { CompraProvider } from "@/context/compraContext";
 import { SessionProvider } from "next-auth/react";
 import { CheckAuth } from "@/components/auth";
+import { useRouter } from "next/router";
 import NavbarComponent from "@/components/navbar";
 import "../styles/globals.css";
 
 const lightTheme = createTheme({
   type: "light",
+  theme:{
+    colors:{
+    }
+  }
 });
 
 const darkTheme = createTheme({
@@ -24,6 +29,7 @@ const darkTheme = createTheme({
 });
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  const router = useRouter()
   return (
     <SessionProvider session={session}>
       <UserProvider>
@@ -41,7 +47,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                 >
                   <NextUIProvider>
                     <CheckAuth>
-                      <NavbarComponent/>
+                      {router.pathname == '/signup' || router.pathname == '/login' ? (<></>) : <NavbarComponent/> }
                       <Component {...pageProps} />
                     </CheckAuth>
                   </NextUIProvider>
