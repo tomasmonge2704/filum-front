@@ -16,11 +16,14 @@ export default function ProductDetail({ product }) {
   const { addToCart } = React.useContext(CartContext);
   const [cantidad, setCantidad] = React.useState([1]);
   React.useMemo(() => {
-    if (product && cantidad <= product.stock && cantidad >= 1){
-      product.cantidad = Number(cantidad);
-    } else{
-      setCantidad(product.stock)
-    }
+    if (product){
+      if(cantidad <= product.stock && cantidad >= 1){
+        product.cantidad = Number(cantidad);
+      }
+      else{
+        setCantidad(product.stock)
+      }
+    } 
   }, [cantidad]);
 
   const handleAddToCart = () => {
