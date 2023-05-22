@@ -14,7 +14,7 @@ const StyledButton = styled("button", {
 export default function CartItem({changeCantidad, item,removeFromCart }) {
   const [cantidad, setCantidad] = React.useState(item.cantidad);
   React.useMemo(() => {
-    if(cantidad <= item.stock){
+    if(cantidad <= item.stock && cantidad >= 1){
       item.cantidad = Number(cantidad);
     }else{
       setCantidad(item.stock);
