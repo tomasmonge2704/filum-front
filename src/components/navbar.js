@@ -27,6 +27,8 @@ export default function NavbarComponent() {
   const navbarLinks = [
     { nombre: "Home", href: "/" },
     { nombre: "Productos", href: "/productos" },
+    {nombre:"Contacto",href:"/contacto"},
+    {nombre: "Quienes somos",href:"/quienes-somos"}
   ];
   const { setTheme } = useNextTheme();
   const { isDark, type } = useTheme();

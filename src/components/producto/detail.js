@@ -17,7 +17,7 @@ import Model3d from "./model3d";
 export default function ProductDetail({ product }) {
   const { addToCart } = React.useContext(CartContext);
   const { user } = React.useContext(UserContext);
-  const [cantidad, setCantidad] = React.useState([1]);
+  const [cantidad, setCantidad] = React.useState(1);
   React.useMemo(() => {
     if (product) {
       if (cantidad <= product.stock && cantidad >= 1) {

@@ -13,7 +13,7 @@ return (
                 src={"https://nextui.org" + item.imageURL}
                 objectFit="cover"
                 width="100%"
-                height={140}
+                height={200}
                 alt={item.nombre}
               />
             </Card.Body>
@@ -21,7 +21,7 @@ return (
               <Row wrap="wrap" justify="space-between" align="center">
                 <Text b>{item.nombre}</Text>
                 <Text css={{ color: "$accents7", fontWeight: "$semibold", fontSize: "$sm" }}>
-                  {item.precio}
+                  $ {item.precio}
                 </Text>
               </Row>
             </Card.Footer>  
