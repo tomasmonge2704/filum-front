@@ -95,7 +95,8 @@ export default function LoginPage() {
         <form
           style={{
             backgroundColor: "rgb(216 115 42 / 26%)",
-            backdropFilter: "blur(30px)",
+            backdropFilter: "blur(30px) contrast(90%)",
+            WebkitBackdropFilter:"blur(30px)",
             borderRadius: "8%",
             width:'22rem'
            
