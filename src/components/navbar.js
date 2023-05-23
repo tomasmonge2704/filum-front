@@ -58,9 +58,10 @@ export default function NavbarComponent() {
           "@xs": {
             w: "12%",
           },
+          marginLeft:isMobile ? "18%" : "0px"
         }}
       >
-        {shouldRenderSwitch && (
+    
         <StyledButton
           css={{ display: "flex", alignItems: "center" }}
           onClick={(e) => {
@@ -72,7 +73,7 @@ export default function NavbarComponent() {
           <Text b color="inherit" hideIn="xs">
             Filum
           </Text>
-        </StyledButton>)}
+        </StyledButton>
       </Navbar.Brand>
       <Navbar.Content
         enableCursorHighlight
@@ -170,15 +171,25 @@ export default function NavbarComponent() {
               css={{
                 minWidth: "100%",
               }}
-              onClick={(e) => {
-                e.preventDefault();
-                Router.push(item.href);
-              }}
+              href={item.href}
             >
               {item.nombre}
             </Link>
           </Navbar.CollapseItem>
         ))}
+        <Navbar.CollapseItem
+            activeColor="secondary"
+          >
+        <Switch
+          checked={isDark}
+          iconOff={<SunIcon filled />}
+          iconOn={<MoonIcon filled />}
+          size="xl"
+          color="error"
+          onChange={(e) => setTheme(e.target.checked ? "dark" : "light")}
+          id="navbarSwitch"
+        />
+      </Navbar.CollapseItem>
       </Navbar.Collapse>
     </Navbar>
   );
