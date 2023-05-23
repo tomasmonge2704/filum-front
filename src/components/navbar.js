@@ -30,9 +30,9 @@ export default function NavbarComponent() {
   ];
   const { setTheme } = useNextTheme();
   const { isDark, type } = useTheme();
-  function dropdownAction(e) {
+  async function dropdownAction(e) {
     if (e == "logout") {
-      signOut();
+      await signOut();
       localStorage.removeItem("token");
       window.location.href = "/login";
     }
