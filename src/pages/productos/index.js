@@ -31,23 +31,28 @@ export default function App() {
 
     obtenerCategorias();
   }, [products]);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <Container css={{ padding: "0px" }}>
-      <Spacer y={isMobile ? 1 : 3} />
+      <Spacer y={isClient && isMobile ? 1 : 3} />
       <Container
         css={{
-          padding: isMobile ? "3%" : "0px",
+          padding: isClient && isMobile ? "3%" : "0px",
           display: "flex",
           justifyContent: "center",
           width: "100%",
         }}
       >
         <SearchBar setSearchTerm={setSearchTerm} />
-        <Spacer y={isMobile ? 1 : 2} />
+        <Spacer y={isClient && isMobile ? 1 : 2} />
       </Container>
       <Grid.Container gap={0}>
-        <Grid xs={isMobile ? 12 : 2}>
+        {isClient && isMobile ? (<></>) : (<Grid xs={2}>
           <Container>
             <Text h4>Filtros</Text>
             <Spacer y={1} />
@@ -57,8 +62,8 @@ export default function App() {
               setSelectedCategoria={setSelectedCategoria}
             />
           </Container>
-        </Grid>
-        <Grid xs={isMobile ? 12 : 10}>
+        </Grid>)}
+        <Grid xs={isClient && isMobile ? 12 : 10}>
           <Grid.Container gap={2}>
             {filteredProducts.length < 1 ? (
               <Card variant="flat">

@@ -60,7 +60,7 @@ export default function NavbarComponent() {
           "@xs": {
             w: "12%",
           },
-          marginLeft:isMobile ? "18%" : "0px"
+          marginLeft:isMobile ? "20%" : "0px"
         }}
       >
     
