@@ -13,9 +13,6 @@ export default function SearchBar ({setSearchTerm}) {
               contentLeftStyling={false}
               css={{
                 w: "100%",
-                "@xsMax": {
-                  mw: "300px",
-                },
                 "& .nextui-input-content--left": {
                   h: "100%",
                   ml: "$4",

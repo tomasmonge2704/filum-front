@@ -6,6 +6,7 @@ export default function Categorias({categorias,selectedCategoria,setSelectedCate
   return (
 <Checkbox.Group
       color="secondary"
+      label="Categoria"
       value={selectedCategoria}
         onChange={setSelectedCategoria}
     >
