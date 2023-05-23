@@ -47,10 +47,10 @@ export default function NavbarComponent() {
   }
   const { user, setUser } = useContext(UserContext);
   const { cart } = useContext(CartContext);
-  const [shouldRenderSwitch, setShouldRenderSwitch] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setShouldRenderSwitch(!isMobile);
+    setIsClient(true);
   }, []);
   return (
     <Navbar isBordered variant="sticky">
@@ -60,7 +60,7 @@ export default function NavbarComponent() {
           "@xs": {
             w: "12%",
           },
-          marginLeft:isMobile ? "20%" : "0px"
+          marginLeft:isClient && isMobile ? "20%" : "0px"
         }}
       >
     
@@ -106,7 +106,7 @@ export default function NavbarComponent() {
           },
         }}
       >
-        {shouldRenderSwitch && (
+        {isClient && !isMobile && (
         <Switch
           checked={isDark}
           iconOff={<SunIcon filled />}
@@ -181,6 +181,7 @@ export default function NavbarComponent() {
         ))}
         <Navbar.CollapseItem
             activeColor="secondary"
+            css={{marginLeft:"80%"}}
           >
         <Switch
           checked={isDark}

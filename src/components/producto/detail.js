@@ -14,6 +14,7 @@ import { UserContext } from "@/context/userContext";
 import Router from "next/router";
 import { isMobile } from "react-device-detect";
 import Model3d from "./model3d";
+
 export default function ProductDetail({ product }) {
   const { addToCart } = React.useContext(CartContext);
   const { user } = React.useContext(UserContext);
@@ -37,13 +38,36 @@ export default function ProductDetail({ product }) {
     Router.push("/checkout");
   };
 
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
       {product ? (
         <Grid.Container gap={isMobile ? 1 : 4} justify="center">
           {!isMobile ? <></> : <Text h1>{product.nombre}</Text>}
           <Grid xs={isMobile ? 12 : 5}>
-            <Model3d />
+            {isLoading ? (
+              <Container
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "400px",
+                }}
+              >
+                <Loading color="primary" />
+              </Container>
+            ) : (
+              <Model3d />
+            )}
           </Grid>
           <Grid xs={isMobile ? 12 : 6}>
             <Container css={isMobile && { display: "grid" }}>
