@@ -34,6 +34,7 @@ export default function NavbarComponent() {
     if (e == "logout") {
       signOut();
       localStorage.removeItem("token");
+      window.location.href = "/login";
     }
     if (e == "Mis compras") {
       Router.push("/mis-compras");
@@ -75,7 +76,7 @@ export default function NavbarComponent() {
       </Navbar.Brand>
       <Navbar.Content
         enableCursorHighlight
-        activeColor="secondary"
+        activeColor="primary"
         hideIn="xs"
         variant="highlight-rounded"
       >
@@ -129,7 +130,7 @@ export default function NavbarComponent() {
               <Avatar
                 bordered
                 as="button"
-                color="secondary"
+                color="primary"
                 size="md"
                 src={user.avatar ? user.avatar : "/avatar.png"}
               />
@@ -137,7 +138,7 @@ export default function NavbarComponent() {
           </Navbar.Item>
           <Dropdown.Menu
             aria-label="User menu actions"
-            color="secondary"
+            color="primary"
             onAction={(actionKey) => dropdownAction(actionKey)}
           >
             <Dropdown.Item key="profile" css={{ height: "$18" }}>

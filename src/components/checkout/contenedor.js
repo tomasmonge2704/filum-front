@@ -22,7 +22,7 @@ export default function CheckoutContenedor({ cart, total }) {
             <Text h3>¿Cómo querés recibir o retirar tu compra?</Text>
             <Spacer y={1} />
             <Container>
-              <Card>
+              <Card variant={isMobile ? "bordered" : "shadow"}>
                 <Card.Body>
                   <Checkbox
                     color="primary"
@@ -32,12 +32,12 @@ export default function CheckoutContenedor({ cart, total }) {
                     Retirar en nuestro domicilio
                   </Checkbox>
                 </Card.Body>
-              </Card>
+              </Card >
             </Container>
             <Spacer y={1} />
 
             <Container>
-              <Card>
+              <Card variant={isMobile ? "bordered" : "shadow"}>
                 <Card.Body>
                   <Checkbox
                     color="primary"

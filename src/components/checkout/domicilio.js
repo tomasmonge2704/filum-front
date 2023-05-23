@@ -58,7 +58,7 @@ import {
       <Container css={{padding:"0px"}}>
         <Text size={20}>Domicilio</Text>
         <Spacer y={1} />
-        <Card>
+        <Card variant={isMobile ? "bordered" : "shadow"}>
           <Card.Body>
             {tipoEnvio === "a domicilio" ? (
               <>

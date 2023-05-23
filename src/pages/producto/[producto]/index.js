@@ -14,6 +14,7 @@ export default function App() {
   <>
     <Spacer y={isMobile ? 1 : 3} />
     <ProductDetail product={productoBuscado}/>
+    <Spacer y={isMobile ? 4 : 0} />
   </>
   );
 }

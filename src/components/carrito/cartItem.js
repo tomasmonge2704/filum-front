@@ -25,7 +25,7 @@ export default function CartItem({changeCantidad, item,removeFromCart }) {
         removeFromCart(item)
     }
   return (
-    <Card><Card.Body>
+    <Card variant={isMobile ? "bordered" : "shadow"}><Card.Body>
     <Grid.Container gap={isMobile ? 0 : 1} justify="center">
       <Grid xs={isMobile ? 4 : 2}>
         <Image

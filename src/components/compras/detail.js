@@ -31,7 +31,7 @@ export default function CompraDetail({ item }) {
               / Estado de la compra
             </Row>
             <Spacer y={1} />
-            <Card>
+            <Card variant={isMobile ? "bordered" : "shadow"}>
               <Card.Header>
                 <Grid.Container>
                   <Grid xs={12}>

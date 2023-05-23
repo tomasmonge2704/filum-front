@@ -3,6 +3,8 @@ import { Button, Input, Spacer, Link, Row, Container } from "@nextui-org/react";
 import { signIn } from "next-auth/react";
 import { GoogleIcon } from "@/components/icons/googleIcon";
 import { useSession } from "next-auth/react";
+import { isMobile } from "react-device-detect";
+import Head from "next/head";
 const API_URL = process.env.NEXT_PUBLIC_API_KEY;
 
 export default function LoginPage() {
@@ -69,59 +71,101 @@ export default function LoginPage() {
   }, [status]);
 
   return (
-      <Container css={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh"
-      }}>
-        <form style={{width:"20rem"}} onSubmit={handleSubmit}>
+    <>
+      <Head>
+        <style>
+          {`
+          body {
+            background-image: url('/logo.png');
+            background-repeat:no-repeat;
+            background-position:${isMobile ? 'top' : '80%'};
+            background-size:${isMobile ? '75%' : '38%'};
+          }
+        `}
+        </style>
+      </Head>
+      <Container
+        css={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <form
+          style={{
+            backgroundColor: "rgb(216 115 42 / 26%)",
+            backdropFilter: "blur(30px)",
+            borderRadius: "8%",
+            width:'22rem'
+           
+          }}
+          onSubmit={handleSubmit}
+        >
+          <Container css={{padding:'5%'}}>
           <Input
             value={username}
             onChange={handleUsernameChange}
             fullWidth
-            status={errorMessage == "Usuario no encontrado" ? "error" : "" }
-            label={errorMessage == "Usuario no encontrado" ? errorMessage : "Username" }
+            status={errorMessage == "Usuario no encontrado" ? "error" : ""}
+            label={
+              errorMessage == "Usuario no encontrado"
+                ? errorMessage
+                : "Username"
+            }
           />
           <Spacer y={1} />
           <Input.Password
             value={password}
             onChange={handlePasswordChange}
             fullWidth
-            status={errorMessage == "Contraseña incorrecta" ? "error" : "" }
-            label={errorMessage == "Contraseña incorrecta" ? errorMessage : "Contraseña" }
+            status={errorMessage == "Contraseña incorrecta" ? "error" : ""}
+            label={
+              errorMessage == "Contraseña incorrecta"
+                ? errorMessage
+                : "Contraseña"
+            }
           />
           <Spacer y={0.5} />
-          <Link block href="/signup">Olvidaste tu contraseña?</Link>
+          <Link block href="/signup">
+            Olvidaste tu contraseña?
+          </Link>
           <Spacer y={0.5} />
           <Button
             type="submit"
             shadow
             variant="contained"
-            color="success"
+            color="primary"
             css={{ width: "100%" }}
           >
             Iniciar sesión
           </Button>
           <Spacer y={1} />
           <div className="separator">
-            <hr className="line"/>
+            <hr className="line" />
             <span>Or</span>
-            <hr className="line"/>
+            <hr className="line" />
           </div>
           <Spacer y={1} />
           <Button
             bordered
             variant="contained"
-            icon={<GoogleIcon/>}
+            icon={<GoogleIcon />}
             onClick={() => signIn("google")}
             css={{ width: "100%" }}
           >
             Iniciar sesión con Google
           </Button>
           <Spacer y={1} />
-          <Row css={{alignItems:'center'}}>No tenes una cuenta?<Link block href="/signup">Signup</Link></Row>
+          <Row css={{ alignItems: "center" }}>
+            No tenes una cuenta?
+            <Link block href="/signup">
+              Signup
+            </Link>
+          </Row>
+          </Container>
         </form>
-        </Container>
+      </Container>
+    </>
   );
 }

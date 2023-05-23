@@ -1,7 +1,7 @@
 import { Container, Text, Spacer, Card, Button } from "@nextui-org/react";
 import React from "react";
 import CartItemView from "../carrito/cartItemView";
-import ContactoCard from "./constactoCard";
+import { isMobile } from "react-device-detect";
 import MercadoPagoCard from "./mercadoPago";
 import { UserContext } from "@/context/userContext";
 import { CompraContext } from "@/context/compraContext";
@@ -29,7 +29,7 @@ export default function Cuenta({ cart, total,envio }) {
   }, [cart,total,envio]);
   
   return (
-    <Card>
+    <Card variant={isMobile ? "bordered" : "shadow"}>
       <Card.Body>
         {selected == true ? (
           <>

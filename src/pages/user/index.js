@@ -95,7 +95,7 @@ export default function App() {
                   <Avatar
                     size="lg"
                     src={user.avatar}
-                    color="secondary"
+                    color="primary"
                     bordered
                     squared
                   />

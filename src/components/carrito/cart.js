@@ -44,7 +44,7 @@ export default function Cart({
         </Container>
       </Grid>
       <Grid xs={isMobile ? 10.5 : 4}>
-        <Card css={{ maxHeight: "300px" }}>
+        <Card css={{ maxHeight: "300px" }} variant={isMobile ? "bordered" : "shadow"}>
           <Card.Body>
             <Container css={{ display: "flex", justifyContent: "center" }}>
               <Text h3>Order Summary</Text>

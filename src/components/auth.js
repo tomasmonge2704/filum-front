@@ -19,10 +19,15 @@ export function CheckAuth({ children }) {
 
     useEffect(() => {
         const token = localStorage.getItem('token')
-        if(router.pathname == '/signup' || router.pathname == '/login' ){
+        if(router.pathname == '/signup' || router.pathname == '/login'){
+            
         }else{
             if (!token){
-                Router.push('/login');
+                if(router.pathname == '/' || router.pathname == '/productos' || router.route == '/producto/[producto]'){
+                    setUser({username:"Invitado"})
+                }else{
+                    Router.push('/login');
+                }
             } else{
                 const decoded = validateToken(token)
                 if(!decoded){

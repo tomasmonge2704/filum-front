@@ -1,12 +1,13 @@
 import { Grid,Card,Row,Text } from "@nextui-org/react"
 import Router from "next/router";
+import { isMobile } from "react-device-detect";
 export default function ItemProductCard({item,index}){
     const handleClick = (id) => {
         Router.push('/producto/' + id)
       };
 return (
     <Grid xs={6} sm={3} key={index}>
-          <Card isPressable onPress={() => handleClick(item._id)}>
+          <Card isPressable variant={isMobile ? "bordered" : "shadow"} onPress={() => handleClick(item._id)}>
             <Card.Body css={{ p: 0 }}>
               <Card.Image
                 src={"https://nextui.org" + item.imageURL}
