@@ -13,10 +13,9 @@ import "../styles/globals.css";
 
 const lightTheme = createTheme({
   type: "light",
-  theme:{
-    colors:{
-    }
-  }
+  theme: {
+    colors: {},
+  },
 });
 
 const darkTheme = createTheme({
@@ -29,33 +28,38 @@ const darkTheme = createTheme({
 });
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <SessionProvider session={session}>
       <UserProvider>
-        <CompraProvider>
-          <ComprasProvider>
-            <CartProvider>
-              <ProductProvider>
-                <NextThemesProvider
-                  defaultTheme="system"
-                  attribute="class"
-                  value={{
-                    light: lightTheme.className,
-                    dark: darkTheme.className,
-                  }}
-                >
-                  <NextUIProvider>
-                    <CheckAuth>
-                      {router.pathname == '/signup' || router.pathname == '/login' ? (<></>) : <NavbarComponent/> }
+        <CheckAuth>
+          <CompraProvider>
+            <ComprasProvider>
+              <CartProvider>
+                <ProductProvider>
+                  <NextThemesProvider
+                    defaultTheme="system"
+                    attribute="class"
+                    value={{
+                      light: lightTheme.className,
+                      dark: darkTheme.className,
+                    }}
+                  >
+                    <NextUIProvider>
+                      {router.pathname == "/signup" ||
+                      router.pathname == "/login" ? (
+                        <></>
+                      ) : (
+                        <NavbarComponent />
+                      )}
                       <Component {...pageProps} />
-                    </CheckAuth>
-                  </NextUIProvider>
-                </NextThemesProvider>
-              </ProductProvider>
-            </CartProvider>
-          </ComprasProvider>
-        </CompraProvider>
+                    </NextUIProvider>
+                  </NextThemesProvider>
+                </ProductProvider>
+              </CartProvider>
+            </ComprasProvider>
+          </CompraProvider>
+        </CheckAuth>
       </UserProvider>
     </SessionProvider>
   );

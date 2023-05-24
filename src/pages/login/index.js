@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, Input, Spacer, Link, Row, Container } from "@nextui-org/react";
+import { Button, Input, Spacer,Text, Link, Row, Container } from "@nextui-org/react";
 import { signIn } from "next-auth/react";
 import { GoogleIcon } from "@/components/icons/googleIcon";
 import { useSession } from "next-auth/react";
@@ -29,11 +29,12 @@ export default function LoginPage() {
         window.location.href = "/";
       } else {
         const res = await response.json();
+        console.log(res.message);
         setErrorMessage(res.message);
       }
     } catch (error) {
       console.log(error);
-      setErrorMessage("Error al iniciar sesión");
+      setErrorMessage(error);
     }
   };
 
@@ -60,7 +61,7 @@ export default function LoginPage() {
       window.location.href = "/";
     } catch (error) {
       console.log(error);
-      setErrorMessage("Error al iniciar sesión con Google");
+      setErrorMessage("TypeError: Failed to fetch");
     }
   };
 
@@ -97,13 +98,14 @@ export default function LoginPage() {
             backgroundColor: "rgb(216 115 42 / 26%)",
             backdropFilter: "blur(30px) contrast(90%)",
             WebkitBackdropFilter:"blur(30px)",
-            borderRadius: "8%",
+            borderRadius: "5%",
             width:'22rem'
            
           }}
           onSubmit={handleSubmit}
         >
           <Container css={{padding:'5%'}}>
+          {errorMessage == "TypeError: Failed to fetch" && <Text color="error" blockquote>Hemos tenido un error en el servidor, lo sentimos.</Text>}
           <Input
             value={username}
             onChange={handleUsernameChange}
@@ -158,12 +160,18 @@ export default function LoginPage() {
             Iniciar sesión con Google
           </Button>
           <Spacer y={1} />
-          <Row css={{ alignItems: "center" }}>
+          <Row css={{ display:"flex",justifyContent:"center",alignItems: "center" }}>
             No tenes una cuenta?
             <Link block href="/signup">
               Signup
             </Link>
           </Row>
+          <Row css={{ display:"flex",justifyContent:"center",alignItems: "center" }}>
+          <Link block href="/">
+              Inicia sesión como Invitado
+            </Link>
+          </Row>
+          
           </Container>
         </form>
       </Container>

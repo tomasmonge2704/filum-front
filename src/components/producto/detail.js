@@ -23,8 +23,6 @@ export default function ProductDetail({ product }) {
     if (product) {
       if (cantidad <= product.stock && cantidad >= 1) {
         product.cantidad = Number(cantidad);
-      } else {
-        setCantidad(product.stock);
       }
     }
   }, [cantidad]);
@@ -80,7 +78,7 @@ export default function ProductDetail({ product }) {
                 labelLeft="Cantidad"
                 width="160px"
                 type="Number"
-                value={cantidad}
+                value={cantidad <= product.stock && cantidad >= 1 &&  cantidad}
                 onChange={(e) => setCantidad(e.target.value)}
               />
               <Spacer y={isMobile ? 1 : 2} />

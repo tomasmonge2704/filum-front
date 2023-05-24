@@ -27,6 +27,9 @@ import {
       setCalle(user.adress?.calle || "");
       setAltura(user.adress?.altura || "");
       setPiso(user.adress?.piso || "");
+      if(!piso || !altura || !calle){
+        setEditable(true)
+      }
     }, [user]);
   
     const handleEditable = () => {
@@ -47,7 +50,7 @@ import {
           });
           const data = await response.json();
           localStorage.setItem("token", data.token);
-          setUser(data.usuario);
+          setUser(data.user);
           setEditable(false);
         } catch (error) {
           console.log(error);

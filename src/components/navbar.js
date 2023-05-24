@@ -135,7 +135,7 @@ export default function NavbarComponent() {
                 as="button"
                 color="primary"
                 size="md"
-                src={user.avatar ? user.avatar : "/avatar.png"}
+                src={user ? user.avatar : "/avatar.png"}
               />
             </Dropdown.Trigger>
           </Navbar.Item>
