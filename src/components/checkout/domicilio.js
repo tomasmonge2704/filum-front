@@ -68,6 +68,7 @@ import {
                 <Input
                   label="Calle"
                   readOnly={!editable}
+                  status={editable ? 'primary' : 'default'}
                   value={calle}
                   onChange={(e) => setCalle(e.target.value)}
                 />
@@ -90,6 +91,7 @@ import {
                     label="Altura"
                     readOnly={!editable}
                     value={altura}
+                    status={editable ? 'primary' : 'default'}
                     width="48%"
                     onChange={(e) => setAltura(e.target.value)}
                   />
@@ -99,6 +101,7 @@ import {
                     width="48%"
                     readOnly={!editable}
                     value={piso}
+                    status={editable ? 'primary' : 'default'}
                     onChange={(e) => setPiso(e.target.value)}
                   />
                   <Spacer x={isMobile ? 12 : 1}/>

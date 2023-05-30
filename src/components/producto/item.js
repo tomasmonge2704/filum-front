@@ -7,7 +7,7 @@ export default function ItemProductCard({item,index}){
       };
 return (
     <Grid xs={6} sm={3} key={index}>
-          <Card isPressable variant={isMobile ? "bordered" : "shadow"} onPress={() => handleClick(item._id)}>
+          <Card isPressable variant={isMobile ? "bordered" : "shadow"} css={{maxHeight:"250px"}} onPress={() => handleClick(item._id)}>
             <Card.Body css={{ p: 0 }}>
               <Card.Image
                 src={"https://nextui.org" + item.imageURL}

@@ -5,32 +5,43 @@ import SearchBar from "@/components/searchBar";
 import ItemProductCard from "@/components/producto/item";
 import Categorias from "@/components/producto/categorias";
 import { isMobile } from "react-device-detect";
-import DropDownFiltros from "@/components/producto/dropDownFiltros";
 
 export default function App() {
   const { products } = useContext(ProductsContext);
   const [searchTerm, setSearchTerm] = useState("");
-  const [categorias, setCategorias] = useState(["Todas"]);
+  const [categorias, setCategorias] = useState([{ linea: "", categorias: ["Todas"] }]);
   const [selectedCategoria, setSelectedCategoria] = useState(["Todas"]);
-
+  
   const filteredProducts = products.filter(
     (product) =>
       product.nombre.toLowerCase().includes(searchTerm.toLowerCase()) &&
       (selectedCategoria.includes("Todas") ||
         selectedCategoria.includes(product.categoria))
   );
-
+  
   useEffect(() => {
     const obtenerCategorias = () => {
-      const categoriasSet = new Set(["Todas"]);
+      const categoriasObj = { "": ["Todas"] };
+  
       products.forEach((product) => {
-        categoriasSet.add(product.categoria);
+        if (!categoriasObj[product.linea]) {
+          categoriasObj[product.linea] = [];
+        }
+        categoriasObj[product.linea].push(product.categoria);
       });
-      setCategorias(Array.from(categoriasSet));
+  
+      const categoriasArray = Object.keys(categoriasObj).map((linea) => ({
+        linea,
+        categorias: [...new Set(categoriasObj[linea])],
+      }));
+  
+      setCategorias(categoriasArray);
     };
-
+  
     obtenerCategorias();
   }, [products]);
+  
+
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {

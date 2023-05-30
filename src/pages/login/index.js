@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { Button, Input, Spacer,Text, Link, Row, Container } from "@nextui-org/react";
+import { Button, Input, Spacer, Text, Link, Row, Container,Loading } from "@nextui-org/react";
 import { signIn } from "next-auth/react";
 import { GoogleIcon } from "@/components/icons/googleIcon";
 import { useSession } from "next-auth/react";
 import { isMobile } from "react-device-detect";
 import Head from "next/head";
+
 const API_URL = process.env.NEXT_PUBLIC_API_KEY;
 
 export default function LoginPage() {
@@ -12,11 +13,15 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const { data: session, status } = useSession();
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Agrega el estado isLoading y establece su valor inicial en false
+
   const handleUsernameChange = (event) => setUsername(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      setIsLoading(true); // Activa isLoading mientras se envía la solicitud al backend
+
       const response = await fetch(`${API_URL}/login/api`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,6 +40,8 @@ export default function LoginPage() {
     } catch (error) {
       console.log(error);
       setErrorMessage(error);
+    } finally {
+      setIsLoading(false); // Desactiva isLoading una vez que se recibe la respuesta del backend
     }
   };
 
@@ -66,7 +73,7 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
-    if (status == "authenticated" && session) {
+    if (status === "authenticated" && session) {
       googleAuth();
     }
   }, [status]);
@@ -134,7 +141,9 @@ export default function LoginPage() {
             Olvidaste tu contraseña?
           </Link>
           <Spacer y={0.5} />
-          <Button
+          {isLoading ? (<Button disabled shadow color="secondary" css={{ px: "$13",width: "100%" }}>
+          <Loading type="spinner" color="currentColor" size="sm" />
+        </Button>) : (<Button
             type="submit"
             shadow
             variant="contained"
@@ -142,7 +151,8 @@ export default function LoginPage() {
             css={{ width: "100%" }}
           >
             Iniciar sesión
-          </Button>
+          </Button>)}
+          
           <Spacer y={1} />
           <div className="separator">
             <hr className="line" />
