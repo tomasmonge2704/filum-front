@@ -9,35 +9,40 @@ import { isMobile } from "react-device-detect";
 export default function App() {
   const { products } = useContext(ProductsContext);
   const [searchTerm, setSearchTerm] = useState("");
-  const [categorias, setCategorias] = useState([{ linea: "", categorias: ["Todas"] }]);
-  const [selectedCategoria, setSelectedCategoria] = useState(["Todas"]);
+  const [categorias, setCategorias] = useState([]);
+  const [selectedCategoria, setSelectedCategoria] = useState([]);
   
   const filteredProducts = products.filter(
     (product) =>
       product.nombre.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (selectedCategoria.includes("Todas") ||
+      (selectedCategoria.length == 0 ||
         selectedCategoria.includes(product.categoria))
   );
   
   useEffect(() => {
     const obtenerCategorias = () => {
-      const categoriasObj = { "": ["Todas"] };
-  
+      const categoriasObj = {};
+
       products.forEach((product) => {
         if (!categoriasObj[product.linea]) {
           categoriasObj[product.linea] = [];
         }
         categoriasObj[product.linea].push(product.categoria);
       });
-  
-      const categoriasArray = Object.keys(categoriasObj).map((linea) => ({
-        linea,
-        categorias: [...new Set(categoriasObj[linea])],
-      }));
-  
+
+      const categoriasArray = Object.keys(categoriasObj).map((linea) => {
+        if (categoriasObj[linea].length > 0) {
+          return {
+            linea,
+            categorias: [...new Set(categoriasObj[linea])],
+          };
+        }
+        return null;
+      }).filter(Boolean);
+
       setCategorias(categoriasArray);
     };
-  
+
     obtenerCategorias();
   }, [products]);
   
@@ -63,9 +68,9 @@ export default function App() {
         <Spacer y={isClient && isMobile ? 1 : 2} />
       </Container>
       <Grid.Container gap={0}>
-        {isClient && isMobile ? (<></>) : (<Grid xs={2}>
+        {isClient && isMobile ? (<></>) : (<Grid xs={3}>
           <Container>
-            <Text h4>Filtros</Text>
+            <Text h4>Lineas</Text>
             <Spacer y={1} />
             <Categorias
               categorias={categorias}
@@ -74,7 +79,7 @@ export default function App() {
             />
           </Container>
         </Grid>)}
-        <Grid xs={isClient && isMobile ? 12 : 10}>
+        <Grid xs={isClient && isMobile ? 12 : 9}>
           <Grid.Container gap={2}>
             {filteredProducts.length < 1 ? (
               <Card variant="flat">
