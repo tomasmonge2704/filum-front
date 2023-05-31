@@ -18,21 +18,14 @@ return (
               />
             </Card.Body>
             <Card.Footer
-      isBlurred
-      css={{
-        position: "absolute",
-        bgBlur: "#ffffff66",
-        borderTop: "$borderWeights$light solid rgba(255, 255, 255, 0.2)",
-        bottom: 0,
-        zIndex: 1,
-      }}
+      css={{ justifyItems: "flex-start" }}
     >
-      <Row justify="space-around">
+      <Row wrap="wrap" justify="space-between" align="center">
         
-          <Text color="#000" size={20}>
+          <Text b>
             {item.nombre}
           </Text>
-          <Text color="$primary" size={20}>
+          <Text css={{ color: "$accents7", fontWeight: "$semibold", fontSize: "$sm" }}>
             $ {item.precio}
           </Text>
 

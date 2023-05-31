@@ -9,7 +9,27 @@
     gap: 30px;
     color: #fd6b00;
   }
-  
+  body {
+    height:100vh;
+  }
+  body.weed {
+    background-image: url("/weed.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+  body.garden {
+    background-image: url("/maceta.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contains;
+  }
+  body.gaymer {
+    background-image: url("/gaymer.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contains;
+  }
   .separator .line {
     display: block;
     width: 100%;

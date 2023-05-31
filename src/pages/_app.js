@@ -18,16 +18,7 @@ const lightTheme = createTheme({
   },
 });
 const weedTheme = createTheme({
-  type: "dark",
-  theme: {
-    colors: {
-      backgroundContrast:"#108944"
-    },
-  },
-});
-
-const darkTheme = createTheme({
-  type: "dark",
+  type: "light",
   theme: {
     colors: {
       primaryLight: '$green200',
@@ -35,11 +26,55 @@ const darkTheme = createTheme({
       primaryLightActive: '$green400',
       primaryLightContrast: '$green600',
       primary: '#4ADE7B',
+      secondary:'$green600',
       primaryBorder: '$green500',
       primaryBorderHover: '$green600',
       primarySolidHover: '$green700',
       primarySolidContrast: '$white',
-      primaryShadow: '$green500',
+      primaryShadow: '$green500'
+    }
+  },
+});
+const gardenTheme = createTheme({
+  type: "ligth",
+  theme: {
+    colors: {
+      primaryLight: '$green200',
+      primaryLightHover: '$green300',
+      primaryLightActive: '$green400',
+      primaryLightContrast: '$green600',
+      primary: '#4ADE7B',
+      secondary:'$green600',
+      primaryBorder: '$green500',
+      primaryBorderHover: '$green600',
+      primarySolidHover: '$green700',
+      primarySolidContrast: '$white',
+      primaryShadow: '$green500'
+    }
+  },
+});
+const gaymerTheme = createTheme({
+  type: "dark",
+  theme: {
+    colors: {
+      primaryLight: '$purple600',
+      primaryLightHover: '$purple700',
+      primaryLightActive: '$purple500',
+      primaryLightContrast: '$purple800',
+      primary: '#6622AA',
+      primaryBorder: '$green500',
+      primaryBorderHover: '$green600',
+      primarySolidHover: '$green700',
+      primarySolidContrast: '$white',
+      primaryShadow: '$green500'
+    }
+  },
+});
+
+const darkTheme = createTheme({
+  type: "dark",
+  theme: {
+    colors: {
       backgroundContrast: "#2b2d2f",
     },
   },
@@ -61,7 +96,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                     value={{
                       light: lightTheme.className,
                       dark: darkTheme.className,
-                      weed: weedTheme.className
+                      weed: weedTheme.className,
+                      garden:gardenTheme.className,
+                      gaymer:gaymerTheme.className
                     }}
                   >
                     <NextUIProvider>

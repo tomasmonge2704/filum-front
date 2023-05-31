@@ -20,7 +20,7 @@ export function CheckAuth({ children }) {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-
+    document.body.classList.value = '';
     if (router.pathname === '/signup' || router.pathname === '/login') {
       // Si la ruta es /signup o /login, no se ejecuta ninguna función adicional
       return;
