@@ -9,9 +9,6 @@
     gap: 30px;
     color: #fd6b00;
   }
-  body {
-    height:100vh;
-  }
   body.weed {
     background-image: url("/weed.png");
     background-repeat: no-repeat;

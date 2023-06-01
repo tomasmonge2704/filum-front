@@ -19,6 +19,8 @@ export default function ProductDetail({ product }) {
   const { addToCart } = React.useContext(CartContext);
   const { user } = React.useContext(UserContext);
   const [cantidad, setCantidad] = React.useState(1);
+  const [color, setColor] = React.useState(0x00ff01)
+
   React.useMemo(() => {
     if (product) {
       if (cantidad <= product.stock && cantidad >= 1) {
@@ -64,7 +66,7 @@ export default function ProductDetail({ product }) {
                 <Loading color="primary" />
               </Container>
             ) : (
-              <Model3d />
+              <Model3d color={color} />
             )}
           </Grid>
           <Grid xs={isMobile ? 12 : 6}>
