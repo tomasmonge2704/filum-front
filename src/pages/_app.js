@@ -18,7 +18,7 @@ const lightTheme = createTheme({
   },
 });
 const weedTheme = createTheme({
-  type: "light",
+  type: "dark",
   theme: {
     colors: {
       primaryLight: '$green200',

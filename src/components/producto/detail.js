@@ -8,6 +8,7 @@ import {
   Tooltip,
   Loading,
   Spacer,
+  Card,
 } from "@nextui-org/react";
 import { CartContext } from "@/context/cartContext";
 import { UserContext } from "@/context/userContext";
@@ -66,7 +67,11 @@ export default function ProductDetail({ product }) {
                 <Loading color="primary" />
               </Container>
             ) : (
+              <Container>
+              <Card variant="bordered"><Card.Body>
               <Model3d color={color} />
+              </Card.Body></Card>
+              </Container>
             )}
           </Grid>
           <Grid xs={isMobile ? 12 : 6}>
@@ -118,6 +123,7 @@ export default function ProductDetail({ product }) {
               )}
             </Container>
           </Grid>
+          <Spacer y={8} />
         </Grid.Container>
       ) : (
         <Container
