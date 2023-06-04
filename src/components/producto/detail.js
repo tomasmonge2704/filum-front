@@ -69,7 +69,7 @@ export default function ProductDetail({ product }) {
             ) : (
               <Container>
               <Card variant="bordered"><Card.Body>
-              <Model3d color={color} file={"/abajo.stl"}/>
+              <Model3d color={color} file={"/ABAJO.stl"}/>
               </Card.Body></Card>
               </Container>
             )}
