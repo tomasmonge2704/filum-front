@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import React, { useEffect, useRef } from "react";
-export default function Model3d({color}) {
+export default function Model3d({color,file}) {
   const containerRef = useRef(null);
   let scene, camera, renderer, object;
 
@@ -48,7 +48,7 @@ export default function Model3d({color}) {
     }
 
     let loader = new STLLoader();
-    loader.load("/abajo.stl", (model) => {
+    loader.load(file, (model) => {
       object = new THREE.Mesh(
         model,
         new THREE.MeshLambertMaterial({ color: color })
