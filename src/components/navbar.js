@@ -53,8 +53,8 @@ export default function NavbarComponent() {
     setIsClient(true);
   }, []);
   return (
-    <Navbar isBordered variant="sticky">
-      <Navbar.Toggle showIn="xs" />
+    <Navbar isBordered variant="floating" css={{background:"none"}}>
+      <Navbar.Toggle showIn="xs"/>
       <Navbar.Brand
         css={{
           "@xs": {
@@ -81,7 +81,7 @@ export default function NavbarComponent() {
         enableCursorHighlight
         activeColor="primary"
         hideIn="xs"
-        variant="highlight-rounded"
+        variant="highlight"
       >
         {navbarLinks.map((item) => (
           <Navbar.Link

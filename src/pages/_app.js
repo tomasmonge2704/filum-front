@@ -17,59 +17,6 @@ const lightTheme = createTheme({
     colors: {},
   },
 });
-const weedTheme = createTheme({
-  type: "dark",
-  theme: {
-    colors: {
-      primaryLight: '$green200',
-      primaryLightHover: '$green300',
-      primaryLightActive: '$green400',
-      primaryLightContrast: '$green600',
-      primary: '#4ADE7B',
-      secondary:'$green600',
-      primaryBorder: '$green500',
-      primaryBorderHover: '$green600',
-      primarySolidHover: '$green700',
-      primarySolidContrast: '$white',
-      primaryShadow: '$green500'
-    }
-  },
-});
-const gardenTheme = createTheme({
-  type: "ligth",
-  theme: {
-    colors: {
-      primaryLight: '$green200',
-      primaryLightHover: '$green300',
-      primaryLightActive: '$green400',
-      primaryLightContrast: '$green600',
-      primary: '#4ADE7B',
-      secondary:'$green600',
-      primaryBorder: '$green500',
-      primaryBorderHover: '$green600',
-      primarySolidHover: '$green700',
-      primarySolidContrast: '$white',
-      primaryShadow: '$green500'
-    }
-  },
-});
-const gaymerTheme = createTheme({
-  type: "dark",
-  theme: {
-    colors: {
-      primaryLight: '$purple600',
-      primaryLightHover: '$purple700',
-      primaryLightActive: '$purple500',
-      primaryLightContrast: '$purple800',
-      primary: '#6622AA',
-      primaryBorder: '$green500',
-      primaryBorderHover: '$green600',
-      primarySolidHover: '$green700',
-      primarySolidContrast: '$white',
-      primaryShadow: '$green500'
-    }
-  },
-});
 
 const darkTheme = createTheme({
   type: "dark",
@@ -95,10 +42,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                     attribute="class"
                     value={{
                       light: lightTheme.className,
-                      dark: darkTheme.className,
-                      weed: weedTheme.className,
-                      garden:gardenTheme.className,
-                      gaymer:gaymerTheme.className
+                      dark: darkTheme.className
                     }}
                   >
                     <NextUIProvider>

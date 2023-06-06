@@ -14,17 +14,19 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
+    background-color: #78a94ee8;
   }
   body.garden {
     background-image: url("/maceta.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: contains;
+    background-color: #b5e245d6;
   }
   body.gaymer {
     background-image: url("/gaymer.png");
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: 60% 70%;
     background-size: contains;
   }
   .separator .line {
