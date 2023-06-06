@@ -9,6 +9,7 @@ import {
   Button,
   Modal,
 } from "@nextui-org/react";
+import Layout from "@/components/layouts/article";
 import SearchBar from "@/components/searchBar";
 import ItemProductCard from "@/components/producto/item";
 import Categorias from "@/components/producto/categorias";
@@ -68,6 +69,7 @@ export default function App() {
     console.log("closed");
   };
   return (
+    <Layout title={"Productos"}>
     <Container css={{ padding: "0px" }}>
       <Spacer y={isClient && isMobile ? 1 : 3} />
       <Container
@@ -164,5 +166,6 @@ export default function App() {
       </Grid.Container>
       <Spacer y={5} />
     </Container>
+    </Layout>
   );
 }

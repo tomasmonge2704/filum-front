@@ -1,3 +1,5 @@
+import Layout from "@/components/layouts/article";
+
 export default function Contacto(){
-    return <></>
+    return <Layout title="contacto"></Layout>
 }

@@ -9,6 +9,8 @@ import {
   Loading,
   Spacer,
   Card,
+  Row,
+  Link
 } from "@nextui-org/react";
 import { CartContext } from "@/context/cartContext";
 import { UserContext } from "@/context/userContext";
@@ -54,7 +56,15 @@ export default function ProductDetail({ product }) {
       {product ? (
         <Grid.Container gap={isMobile ? 1 : 4} justify="center">
           {!isMobile ? <></> : <Text h1>{product.nombre}</Text>}
-          <Grid xs={isMobile ? 12 : 5}>
+          <Container>
+          <Row css={{ alignItems: "center" }}>
+              <Link block href="/productos">
+                Productos
+              </Link>
+              | {product._id}
+            </Row>
+            </Container>
+          <Grid xs={isMobile ? 12 : 4}>
             {isLoading ? (
               <Container
                 style={{
@@ -68,13 +78,13 @@ export default function ProductDetail({ product }) {
               </Container>
             ) : (
               <Container>
-              <Card variant="bordered"><Card.Body>
+              <Card variant="flat"><Card.Body>
               <Model3d color={color} file={"/ABAJO.stl"}/>
               </Card.Body></Card>
               </Container>
             )}
           </Grid>
-          <Grid xs={isMobile ? 12 : 6}>
+          <Grid xs={isMobile ? 12 : 5}>
             <Container css={isMobile && { display: "grid" }}>
               {isMobile ? <></> : <Text h1>{product.nombre}</Text>}
               <Text size="$xl">${product.precio}</Text>

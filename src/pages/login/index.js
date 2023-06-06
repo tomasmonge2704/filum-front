@@ -5,6 +5,7 @@ import { GoogleIcon } from "@/components/icons/googleIcon";
 import { useSession } from "next-auth/react";
 import { isMobile } from "react-device-detect";
 import Head from "next/head";
+import Layout from "@/components/layouts/article";
 
 const API_URL = process.env.NEXT_PUBLIC_API_KEY;
 
@@ -79,7 +80,7 @@ export default function LoginPage() {
   }, [status]);
 
   return (
-    <>
+    <Layout title="Login">
       <Head>
         <style>
           {`
@@ -185,6 +186,6 @@ export default function LoginPage() {
           </Container>
         </form>
       </Container>
-    </>
+    </Layout>
   );
 }

@@ -15,6 +15,7 @@ import {
 import { IconButton } from "@/components/icons/iconButton";
 import { EditIcon } from "@/components/icons/editIcon";
 import { isMobile } from "react-device-detect";
+import Layout from "@/components/layouts/article";
 const API_URL = process.env.NEXT_PUBLIC_API_KEY;
 export default function App() {
   const { user, setUser } = React.useContext(UserContext);
@@ -82,7 +83,7 @@ export default function App() {
     setEditableMail(false);
   };
   return (
-    <>
+    <Layout title="User">
       <Spacer y={2} />
       <Container css={{ display: "flex", justifyContent: "center" }}>
         <Grid.Container gap={isMobile ? 0 : 2}>
@@ -205,6 +206,6 @@ export default function App() {
           </Grid>
         </Grid.Container>
       </Container>
-    </>
+    </Layout>
   );
 }

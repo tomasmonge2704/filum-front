@@ -5,9 +5,10 @@ import {
   Spacer,
   Grid,
 } from "@nextui-org/react";
+import Layout from "@/components/layouts/article";
 export default function App() {
   return (
-    <>
+    <Layout title="Mis Compras">
       <Spacer y={2} />
       <Container css={{ display: "flex", justifyContent: "center" }}>
         <Grid.Container gap={2}>
@@ -16,6 +17,6 @@ export default function App() {
           </Grid>
         </Grid.Container>
       </Container>
-    </>
+    </Layout>
   );
 }
