@@ -123,7 +123,7 @@ export default function App() {
             <></>
           ) : (
             <Grid xs={3}>
-              <Container>
+              <Container css={{paddingLeft:"12px"}}>
                 <Categorias
                   categorias={categorias}
                   selectedCategoria={selectedCategoria}

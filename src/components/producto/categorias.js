@@ -24,7 +24,7 @@ export default function Categorias({ categorias, selectedCategoria, setSelectedC
 
   return (
     <Container css={{ padding: "0px", width: "100%"}}>
-      <Collapse.Group bordered css={{ width: "100%",backdropFilter: "saturate(150%) blur(35px)" }}>
+      <Collapse.Group shadow css={{ width: "100%",backdropFilter: "saturate(150%) blur(35px)" }}>
         {categorias.map((e, index) => (
           <Collapse
             key={e.linea}
