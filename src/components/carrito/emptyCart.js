@@ -6,25 +6,34 @@ import {
   Row,
   Button,
   Image,
+  useTheme
 } from "@nextui-org/react";
+import { useTheme as useNextTheme } from "next-themes";
 import Router from "next/router";
 
 export default function EmptyCart() {
+  const { isDark } = useTheme();
   return (
     <Container xl>
       <Card css={{ $$cardColor: "none" }}>
         <Card.Body>
+        <Image
+            src="/emptyCart.png"
+            objectFit="contain"
+            width="100%"
+            height={300}
+            css={isDark && {filter:"invert()"}}
+            alt="carritoVacio"
+          />
           <Row justify="center" align="center">
             <Text
-              h1
-              size={40}
-              weight="bold"
+              h3
+              size={20}
             >
               No tienes compras actualmente
             </Text>
-            <Spacer y={3} />
           </Row>
-          <Spacer y={2} />
+          <Spacer y={1} />
           <Row justify="center" align="center">
             <Button
               shadow
@@ -37,14 +46,6 @@ export default function EmptyCart() {
             </Button>
           </Row>
           <Spacer y={2} />
-          <Image
-            src="/emptyCart.png"
-            objectFit="contain"
-            width="100%"
-            height={300}
-            css={{ borderRadius: "4%" }}
-            alt="carritoVacio"
-          />
                   </Card.Body>
       </Card>
     </Container>
