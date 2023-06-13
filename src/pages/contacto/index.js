@@ -64,15 +64,15 @@ export default function Contacto() {
                     justifyContent: "center",
                   }}
                 >
-                  <Image
+                     <Image
                     src="/logo.png"
                     objectFit="contain"
-                    width={270}
-                    height={270}
+                    width={isClient && isMobile ? 0 : 270}
+                    height={isClient && isMobile ? 0 : 270}
                     alt="logo"
                   />
                   <Grid.Container gap={2}>
-                    <Grid xs={isClient && isMobile ? 6 :4} justify="center">
+                    <Grid xs={4} justify="center">
                       <Tooltip
                         content={"Seguinos en instagram!"}
                         placement="top"
@@ -91,7 +91,7 @@ export default function Contacto() {
                         </Container>
                       </Tooltip>
                     </Grid>
-                    <Grid xs={isClient && isMobile ? 6 :4} justify="center">
+                    <Grid xs={4} justify="center">
                       <Container
                         css={{
                           display: "grid",
@@ -106,7 +106,7 @@ export default function Contacto() {
                         </Text>
                       </Container>
                     </Grid>
-                    <Grid xs={isClient && isMobile ? 12 : 4} justify="center">
+                    <Grid xs={4} justify="center">
                       <Container
                         css={{
                           display: "grid",
