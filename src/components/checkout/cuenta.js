@@ -27,7 +27,14 @@ export default function Cuenta({ cart, total,envio }) {
       total,
     })
   }, [cart,total,envio]);
-  
+  function pesificar (precio){
+    return precio.toLocaleString("es-ES", {
+      style: "currency",
+      currency: "ARS",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+  }
   return (
     <Card variant={isMobile ? "bordered" : "shadow"}>
       <Card.Body>
@@ -62,7 +69,7 @@ export default function Cuenta({ cart, total,envio }) {
                     css={{ display: "flex",padding:"0px" ,justifyContent: "space-between" }}
                   >
                     <Text size="$xl">Pagás </Text>
-                    <Text size="$xl">${total}</Text>
+                    <Text size="$xl">{pesificar(total)}</Text>
                   </Container>
                 </Container>
               </Card.Body>

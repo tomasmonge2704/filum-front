@@ -23,7 +23,14 @@ export default function ProductDetail({ product }) {
   const { user } = React.useContext(UserContext);
   const [cantidad, setCantidad] = React.useState(1);
   const [color, setColor] = React.useState(0x00ff01)
-
+  function pesificar (precio){
+    return precio.toLocaleString("es-ES", {
+      style: "currency",
+      currency: "ARS",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+  }
   React.useMemo(() => {
     if (product) {
       if (cantidad <= product.stock && cantidad >= 1) {
@@ -55,7 +62,6 @@ export default function ProductDetail({ product }) {
     <>
       {product ? (
         <Grid.Container gap={isMobile ? 1 : 4} justify="center">
-          {!isMobile ? <></> : <Text h1>{product.nombre}</Text>}
           <Container>
           <Row css={{ alignItems: "center" }}>
               <Link block href="/productos">
@@ -64,7 +70,8 @@ export default function ProductDetail({ product }) {
               | {product._id}
             </Row>
             </Container>
-          <Grid xs={isMobile ? 12 : 4}>
+          {!isMobile ? <></> : <Text h1>{product.nombre}</Text>}
+          <Grid xs={isMobile ? 12 : 6}>
             {isLoading ? (
               <Container
                 style={{
@@ -84,10 +91,10 @@ export default function ProductDetail({ product }) {
               </Container>
             )}
           </Grid>
-          <Grid xs={isMobile ? 12 : 5}>
+          <Grid xs={isMobile ? 12 : 6}>
             <Container css={isMobile && { display: "grid" }}>
               {isMobile ? <></> : <Text h1>{product.nombre}</Text>}
-              <Text size="$xl">${product.precio}</Text>
+              <Text size="$xl">{pesificar(product.precio)}</Text>
               <Text size="$xl">{product.descripcion}</Text>
               <Text size="$xl">Stock disponible: {product.stock}</Text>
               {!isMobile && <Spacer y={1} />}

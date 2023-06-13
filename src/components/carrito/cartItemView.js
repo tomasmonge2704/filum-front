@@ -2,6 +2,14 @@ import React from "react";
 import { Image, Grid,Container,Text } from "@nextui-org/react";
 
 export default function CartItemView({ item, index }) {
+  function pesificar (precio){
+    return precio.toLocaleString("es-ES", {
+      style: "currency",
+      currency: "ARS",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+  }
   return (
         <Grid.Container
           gap={0}
@@ -24,7 +32,7 @@ export default function CartItemView({ item, index }) {
                   >
                     <Text size="$md">{item.nombre}</Text>
                     <Text size="$md">{item.cantidad} Unidades</Text>
-                    <Text size="$md">${item.precio}</Text>
+                    <Text size="$md">{pesificar(item.precio)}</Text>
                   </Container>
           </Grid>
         </Grid.Container>

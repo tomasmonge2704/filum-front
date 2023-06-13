@@ -10,6 +10,7 @@
     color: #fd6b00;
   }
   body.weed {
+    height:100vh;
     background-image: url("/weed.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -17,6 +18,7 @@
     background-color: #78a94ee8;
   }
   body.garden {
+    height:100vh;
     background-image: url("/maceta.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -24,6 +26,7 @@
     background-color: #b5e245d6;
   }
   body.gaymer {
+    height:100vh;
     background-image: url("/gaymer.png");
     background-repeat: no-repeat;
     background-position: 60% 70%;

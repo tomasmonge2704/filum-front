@@ -70,102 +70,106 @@ export default function App() {
   };
   return (
     <Layout title={"Productos"}>
-    <Container css={{ padding: "0px" }}>
-      <Spacer y={isClient && isMobile ? 1 : 3} />
-      <Container
-        css={{
-          padding: isClient && isMobile ? "3%" : "0px",
-          display: "flex",
-          justifyContent: "center",
-          width: "100%",
-        }}
-      >
-        <div
-          style={isClient && isMobile ? { width: "70%" } : { width: "100%" }}
+      <Container css={{ padding: "0px" }}>
+        <Spacer y={1} />
+        <Container
+          css={{
+            padding: isClient && isMobile ? "3%" : "0px",
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+          }}
         >
-          <SearchBar setSearchTerm={setSearchTerm} />
-        </div>
+          {isClient && isMobile && (
+            <div style={{ width: "70%" }}>
+              <SearchBar setSearchTerm={setSearchTerm} />
+            </div>
+          )}
+          {isClient && isMobile && (
+            <Button
+              auto
+              flat
+              color="primary"
+              onPress={handler}
+              css={{ marginLeft: "4%" }}
+            >
+              Filtros
+            </Button>
+          )}
+          <Spacer y={isClient && isMobile ? 1 : 2} />
+        </Container>
         {isClient && isMobile && (
-          <Button
-            auto
-            flat
-            color="primary"
-            onPress={handler}
-            css={{ marginLeft: "4%" }}
+          <Modal
+            closeButton
+            aria-labelledby="modal-title"
+            open={visible}
+            onClose={closeHandler}
           >
-            Filtros
-          </Button>
-        )}
-        <Spacer y={isClient && isMobile ? 1 : 2} />
-      </Container>
-      {isClient && isMobile && (
-        <Modal
-          closeButton
-          aria-labelledby="modal-title"
-          open={visible}
-          onClose={closeHandler}
-        >
-          <Modal.Header>
-            <Text b>Categorias</Text>
-            <Spacer y={1} />
-          </Modal.Header>
-          <Modal.Body>
-            <Categorias
-              categorias={categorias}
-              selectedCategoria={selectedCategoria}
-              setSelectedCategoria={setSelectedCategoria}
-            />
-          </Modal.Body>
-        </Modal>
-      )}
-      <Grid.Container gap={0}>
-        {isClient && isMobile ? (
-          <></>
-        ) : (
-          <Grid xs={3}>
-            <Container>
-              <Text h4>Lineas</Text>
+            <Modal.Header>
+              <Text b>Categorias</Text>
               <Spacer y={1} />
+            </Modal.Header>
+            <Modal.Body>
               <Categorias
                 categorias={categorias}
                 selectedCategoria={selectedCategoria}
                 setSelectedCategoria={setSelectedCategoria}
               />
-            </Container>
-          </Grid>
+            </Modal.Body>
+          </Modal>
         )}
-        <Grid xs={isClient && isMobile ? 12 : 9}>
-          <Grid.Container gap={2}>
-            {filteredProducts.length < 1 ? (
-              <Card
-                variant="flat"
-                css={{ maxHeight: "250px", justifyContent: "center" }}
-              >
-                <Card.Body>
-                  <Container
-                    css={{
-                      display: "flex",
-                      justifyContent: "center",
-                      textAlign: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Text b>No se ha encontrado ningun producto.</Text>
-                  </Container>
-                </Card.Body>
-              </Card>
-            ) : (
-              <>
-                {filteredProducts.map((item, index) => (
-                  <ItemProductCard key={index} item={item} index={index} />
-                ))}
-              </>
-            )}
-          </Grid.Container>
-        </Grid>
-      </Grid.Container>
-      <Spacer y={5} />
-    </Container>
+        <Grid.Container gap={0}>
+          {isClient && isMobile ? (
+            <></>
+          ) : (
+            <Grid xs={3}>
+              <Container>
+                <Categorias
+                  categorias={categorias}
+                  selectedCategoria={selectedCategoria}
+                  setSelectedCategoria={setSelectedCategoria}
+                />
+              </Container>
+            </Grid>
+          )}
+          <Grid xs={isClient && isMobile ? 12 : 9}>
+            <Grid.Container gap={2} alignContent="flex-start">
+            {isClient && !isMobile && (
+                    <Container css={{padding:"0px"}}>
+                      <SearchBar setSearchTerm={setSearchTerm} />
+                      <Spacer y={1}/>
+                    </Container>
+                  )}
+              {filteredProducts.length < 1 ? (
+                <Card
+                  variant="flat"
+                  css={{ maxHeight: "250px", justifyContent: "center" }}
+                >
+                  <Card.Body>
+                    <Container
+                      css={{
+                        display: "flex",
+                        justifyContent: "center",
+                        textAlign: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Text b>No se ha encontrado ningun producto.</Text>
+                    </Container>
+                  </Card.Body>
+                </Card>
+              ) : (
+                <>
+                  {filteredProducts.map((item, index) => (
+                    <ItemProductCard key={index} item={item} index={index} />
+                  ))}
+                </>
+              )}
+            </Grid.Container>
+          </Grid>
+        </Grid.Container>
+        <Spacer y={5} />
+      </Container>
     </Layout>
   );
 }

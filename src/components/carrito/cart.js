@@ -11,13 +11,21 @@ export default function Cart({
   changeCantidad,
 }) {
   const checkout = () => {
-    Router.push('/checkout')
+    Router.push("/checkout");
+  };
+  function pesificar (precio){
+    return precio.toLocaleString("es-ES", {
+      style: "currency",
+      currency: "ARS",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
   }
   return (
     <Grid.Container gap={isMobile ? 0 : 3} justify="center">
       <Grid xs={12}>
         <Container>
-        <Text h1> Carrito</Text>
+          <Text h1> Carrito</Text>
         </Container>
       </Grid>
       <Grid xs={isMobile ? 12 : 8}>
@@ -44,7 +52,10 @@ export default function Cart({
         </Container>
       </Grid>
       <Grid xs={isMobile ? 10.5 : 4}>
-        <Card css={{ maxHeight: "300px" }} variant={isMobile ? "bordered" : "shadow"}>
+        <Card
+          css={{ maxHeight: "300px" }}
+          variant={isMobile ? "bordered" : "shadow"}
+        >
           <Card.Body>
             <Container css={{ display: "flex", justifyContent: "center" }}>
               <Text h3>Order Summary</Text>
@@ -56,7 +67,7 @@ export default function Cart({
                   css={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <Text size="$xl">Total: </Text>
-                  <Text size="$xl">${total}</Text>
+                  <Text size="$xl">{pesificar(total)}</Text>
                 </Container>
               </Card.Body>
             </Card>

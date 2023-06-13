@@ -24,6 +24,14 @@ export default function CartItem({changeCantidad, item,removeFromCart }) {
     const handleDeleteItem = () =>{
         removeFromCart(item)
     }
+    function pesificar (precio){
+      return precio.toLocaleString("es-ES", {
+        style: "currency",
+        currency: "ARS",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+    }
   return (
     <Card variant={isMobile ? "bordered" : "shadow"}><Card.Body>
     <Grid.Container gap={isMobile ? 0 : 1} justify="center">
@@ -42,7 +50,7 @@ export default function CartItem({changeCantidad, item,removeFromCart }) {
         <Text>
         {item.nombre}  
         </Text>    
-        <Text>${item.precio}</Text>
+        <Text>{pesificar(item.precio)}</Text>
         <Spacer y={1}/>
       <Input labelLeft="Cantidad"  width="160px" type="Number" value={cantidad} onChange={(e) => setCantidad(e.target.value)}/>
       </Container>

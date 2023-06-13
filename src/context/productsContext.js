@@ -1,10 +1,11 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useMemo } from "react";
 const API_URL = process.env.NEXT_PUBLIC_API_KEY;
 
 export const ProductsContext = createContext();
 
 export function ProductProvider({ children }) {
   const [products, setProducts] = useState([]);
+
   const getProducts = async (token) => {
     try {
       const response = await fetch(`${API_URL}/api/producto`, {
@@ -17,19 +18,27 @@ export function ProductProvider({ children }) {
       const data = await response.json();
       setProducts(data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
-  
-  const [token, setToken] = useState('');
+
+  const [token, setToken] = useState("");
   useEffect(() => {
     setToken(localStorage.getItem("token"));
-    getProducts(token);
+  }, []);
+
+  useMemo(() => {
+    if(token)getProducts(token);
   }, [token]);
 
+  const contextValue = useMemo(() => {
+    return { products, setProducts };
+  }, [products, setProducts]);
+
   return (
-    <ProductsContext.Provider value={{ products, setProducts }}>
+    <ProductsContext.Provider value={contextValue}>
       {children}
     </ProductsContext.Provider>
   );
 }
+
