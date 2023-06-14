@@ -24,6 +24,7 @@ const Layout = ({ children, title }) => {
             <title>{t}</title>
             <meta name="twitter:title" content={t} />
             <meta property="og:title" content={t} />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
           </Head>
         )}
         {children}

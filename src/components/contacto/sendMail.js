@@ -41,16 +41,14 @@ export default function SendMail({ mail }) {
         variants={variants}
         transition={{ type: "spring", stiffness: 100 }}
       >
-        <Container>
             <Spacer y={2} />
-        <Card variant="flat" css={{background:"$green500"}}>
+        <Card variant="flat" css={{background:"$green500",width:"100%"}}>
         <Card.Body css={{display:"grid",justifyItems:"center",textAlign:"center"}}>
         <Text h4>Se ha enviado su mensaje con exito!</Text>
         <Spacer y={1} />
         <Button onClick={()=> setCompleted(false)} color="success" rounded bordered>Volver</Button>
         </Card.Body>
         </Card>
-        </Container>
         </motion.article>
       ) : (
         <>
@@ -73,9 +71,11 @@ export default function SendMail({ mail }) {
               <Loading type="spinner" color="currentColor" size="sm" />
             </Button>
           ) : (
-            <Button css={{ width: "100%" }} onClick={handleSubmit}>
+            <div style={{display:"flex",justifyContent:"center"}}>
+            <Button css={{ width: "40%" }} onClick={handleSubmit}>
               Enviar
             </Button>
+            </div>
           )}
         </>
       )}
