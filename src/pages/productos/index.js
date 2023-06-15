@@ -8,7 +8,7 @@ import {
   Text,
   Button,
   Modal,
-  Pagination
+  Pagination,
 } from "@nextui-org/react";
 import Layout from "@/components/layouts/article";
 import SearchBar from "@/components/searchBar";
@@ -72,80 +72,91 @@ export default function App() {
   };
   return (
     <Layout title={"Productos"}>
-      <Container css={{ padding: "0px" }}>
+      <Container css={{ padding: "0px",minHeight:"100vh" }}>
         <Spacer y={1} />
-        <Grid.Container
-        gap={2}
-        >
+        <Grid.Container gap={2}>
           <Grid xs={isClient && isMobile ? 3 : 2}>
             <Button
               auto={isClient && isMobile ? true : false}
-              css={isClient && isMobile && {width:"100%"}}
+              css={isClient && isMobile && { width: "100%" }}
               flat
               color="primary"
               onPress={handler}
             >
               Filtros
             </Button>
-            </Grid>
-            <Grid xs={isClient && isMobile ? 9 : 10}>
-              <SearchBar setSearchTerm={setSearchTerm} />
-            </Grid>
+          </Grid>
+          <Grid xs={isClient && isMobile ? 9 : 10}>
+            <SearchBar setSearchTerm={setSearchTerm} />
+          </Grid>
         </Grid.Container>
         <Spacer y={1} />
-          <Modal
-            closeButton
-            aria-labelledby="modal-title"
-            open={visible}
-            onClose={closeHandler}
-          >
-            <Modal.Header>
-              <Text b>Categorias</Text>
-              <Spacer y={1} />
-            </Modal.Header>
-            <Modal.Body>
-              <Categorias
-                categorias={categorias}
-                selectedCategoria={selectedCategoria}
-                setSelectedCategoria={setSelectedCategoria}
-              />
-            </Modal.Body>
-          </Modal>
-            <Grid.Container gap={2} alignContent="flex-start">
-              {filteredProducts.length < 1 ? (
-                <Card
-                  variant="flat"
-                  css={isClient && isMobile ? { maxHeight: "250px", justifyContent: "center",margin:"3%"} : { maxHeight: "250px", justifyContent: "center"}}
+        <Modal
+          closeButton
+          aria-labelledby="modal-title"
+          open={visible}
+          onClose={closeHandler}
+        >
+          <Modal.Header>
+            <Text b>Categorias</Text>
+            <Spacer y={1} />
+          </Modal.Header>
+          <Modal.Body>
+            <Categorias
+              categorias={categorias}
+              selectedCategoria={selectedCategoria}
+              setSelectedCategoria={setSelectedCategoria}
+            />
+          </Modal.Body>
+        </Modal>
+        <Grid.Container gap={2} alignContent="flex-start">
+          {filteredProducts.length < 1 ? (
+            <Card
+              variant="flat"
+              css={
+                isClient && isMobile
+                  ? {
+                      maxHeight: "250px",
+                      justifyContent: "center",
+                      margin: "3%",
+                    }
+                  : { maxHeight: "250px", justifyContent: "center" }
+              }
+            >
+              <Card.Body>
+                <Container
+                  css={{
+                    display: "flex",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    alignItems: "center",
+                  }}
                 >
-                  <Card.Body>
-                    <Container
-                      css={{
-                        display: "flex",
-                        justifyContent: "center",
-                        textAlign: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Text b>No se ha encontrado ningun producto.</Text>
-                    </Container>
-                  </Card.Body>
-                </Card>
-              ) : (
-                <>
-                  {filteredProducts.slice((currentPage - 1) * 8, currentPage * 8).map((item, index) => (
-                    <ItemProductCard key={index} item={item} index={index} />
-                  ))}
-                  <Container css={{ display: "flex", justifyContent: "center" }}>
+                  <Text b>No se ha encontrado ningun producto.</Text>
+                </Container>
+              </Card.Body>
+            </Card>
+          ) : (
+            <>
+              {filteredProducts
+                .slice((currentPage - 1) * 8, currentPage * 8)
+                .map((item, index) => (
+                  <ItemProductCard key={index} item={item} index={index} />
+                ))}
+                <Spacer y={1} />
+              {filteredProducts.length > 8 && (
+                <Container css={{ display: "flex", justifyContent: "center" }}>
                   <Pagination
                     total={Math.ceil(filteredProducts.length / 8)}
                     initialPage={1}
                     onChange={(newPage) => setCurrentPage(newPage)}
                   />
                 </Container>
-                </>
               )}
-            </Grid.Container>
-        <Spacer y={5} />
+            </>
+          )}
+        </Grid.Container>
+        <Spacer y={2} />
       </Container>
     </Layout>
   );
