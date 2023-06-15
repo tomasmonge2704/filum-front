@@ -8,6 +8,7 @@ import {
   Text,
   Button,
   Modal,
+  Pagination
 } from "@nextui-org/react";
 import Layout from "@/components/layouts/article";
 import SearchBar from "@/components/searchBar";
@@ -19,6 +20,7 @@ export default function App() {
   const { products } = useContext(ProductsContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [categorias, setCategorias] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategoria, setSelectedCategoria] = useState([]);
   const filteredProducts = products.filter(
     (product) =>
@@ -72,33 +74,25 @@ export default function App() {
     <Layout title={"Productos"}>
       <Container css={{ padding: "0px" }}>
         <Spacer y={1} />
-        <Container
-          css={{
-            padding: isClient && isMobile ? "3%" : "0px",
-            display: "flex",
-            justifyContent: "center",
-            width: "100%",
-          }}
+        <Grid.Container
+        gap={2}
         >
-          {isClient && isMobile && (
-            <div style={{ width: "70%" }}>
-              <SearchBar setSearchTerm={setSearchTerm} />
-            </div>
-          )}
-          {isClient && isMobile && (
+          <Grid xs={isClient && isMobile ? 3 : 2}>
             <Button
-              auto
+              auto={isClient && isMobile ? true : false}
+              css={isClient && isMobile && {width:"100%"}}
               flat
               color="primary"
               onPress={handler}
-              css={{ marginLeft: "4%" }}
             >
               Filtros
             </Button>
-          )}
-          <Spacer y={isClient && isMobile ? 1 : 2} />
-        </Container>
-        {isClient && isMobile && (
+            </Grid>
+            <Grid xs={isClient && isMobile ? 9 : 10}>
+              <SearchBar setSearchTerm={setSearchTerm} />
+            </Grid>
+        </Grid.Container>
+        <Spacer y={1} />
           <Modal
             closeButton
             aria-labelledby="modal-title"
@@ -117,33 +111,11 @@ export default function App() {
               />
             </Modal.Body>
           </Modal>
-        )}
-        <Grid.Container gap={0}>
-          {isClient && isMobile ? (
-            <></>
-          ) : (
-            <Grid xs={3}>
-              <Container css={{paddingLeft:"12px"}}>
-                <Categorias
-                  categorias={categorias}
-                  selectedCategoria={selectedCategoria}
-                  setSelectedCategoria={setSelectedCategoria}
-                />
-              </Container>
-            </Grid>
-          )}
-          <Grid xs={isClient && isMobile ? 12 : 9}>
             <Grid.Container gap={2} alignContent="flex-start">
-            {isClient && !isMobile && (
-                    <Container css={{padding:"0px"}}>
-                      <SearchBar setSearchTerm={setSearchTerm} />
-                      <Spacer y={1}/>
-                    </Container>
-                  )}
               {filteredProducts.length < 1 ? (
                 <Card
                   variant="flat"
-                  css={{ maxHeight: "250px", justifyContent: "center" }}
+                  css={isClient && isMobile ? { maxHeight: "250px", justifyContent: "center",margin:"3%"} : { maxHeight: "250px", justifyContent: "center"}}
                 >
                   <Card.Body>
                     <Container
@@ -160,14 +132,19 @@ export default function App() {
                 </Card>
               ) : (
                 <>
-                  {filteredProducts.map((item, index) => (
+                  {filteredProducts.slice((currentPage - 1) * 8, currentPage * 8).map((item, index) => (
                     <ItemProductCard key={index} item={item} index={index} />
                   ))}
+                  <Container css={{ display: "flex", justifyContent: "center" }}>
+                  <Pagination
+                    total={Math.ceil(filteredProducts.length / 8)}
+                    initialPage={1}
+                    onChange={(newPage) => setCurrentPage(newPage)}
+                  />
+                </Container>
                 </>
               )}
             </Grid.Container>
-          </Grid>
-        </Grid.Container>
         <Spacer y={5} />
       </Container>
     </Layout>

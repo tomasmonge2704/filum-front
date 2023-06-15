@@ -42,7 +42,7 @@ export default function SendMail({ mail }) {
         transition={{ type: "spring", stiffness: 100 }}
       >
             <Spacer y={2} />
-        <Card variant="flat" css={{background:"$green500",width:"100%"}}>
+        <Card variant="flat" css={{background:"$green500"}}>
         <Card.Body css={{display:"grid",justifyItems:"center",textAlign:"center"}}>
         <Text h4>Se ha enviado su mensaje con exito!</Text>
         <Spacer y={1} />
